@@ -9,11 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 <!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./supabase-config.js"></script>
 
 <!-- ==== BIM SOLUTIONS BACKEND CONFIG ==== -->
 <script>
-  // TODO: Fill in from your Supabase Dashboard → Settings → API
-  window.BIMS_CONFIG = {
+  // Configuration is loaded from supabase-config.js when credentials are available.
+  // The fallback keeps the public site usable before Supabase is provisioned.
+  window.BIMS_CONFIG = window.BIMS_CONFIG || {
     SUPABASE_URL: 'https://YOUR-PROJECT.supabase.co',
     SUPABASE_ANON_KEY: 'YOUR-ANON-PUBLIC-KEY'
   };
@@ -2580,3 +2582,5 @@
 
 </body>
 </html>
+
+

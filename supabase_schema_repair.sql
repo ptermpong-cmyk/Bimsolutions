@@ -128,3 +128,4 @@ $$;
 -- This enforces the business rule: "Users must sign up first — OAuth is
 -- for login convenience only."
 
+

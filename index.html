@@ -879,6 +879,102 @@
   }
   .user-menu-btn:hover { background: var(--bg-2); }
   .user-menu-btn.logout { color: #ef4444; }
+  .user-menu-btn.admin-btn { color: var(--accent); font-weight: 600; }
+  .user-menu-btn.admin-btn:hover { background: var(--accent-dim); }
+
+  /* ADMIN & PROFILE MODAL */
+  .modal-wide .modal-content, .modal-wide.modal { max-width: 900px; width: 95vw; }
+  .modal-body { max-height: 75vh; overflow-y: auto; padding: 20px 24px; }
+  .admin-tabs {
+    display: flex; gap: 2px; background: var(--bg-2);
+    padding: 4px; border-radius: 12px; margin-bottom: 20px;
+  }
+  .admin-tab {
+    flex: 1; padding: 10px 16px; border-radius: 8px;
+    background: none; border: none; cursor: pointer;
+    color: var(--ink-2); font-family: inherit; font-size: 14px; font-weight: 500;
+    transition: all .2s ease;
+  }
+  .admin-tab.active { background: var(--bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+  .admin-tab-content { display: none; }
+  .admin-tab-content.active { display: block; }
+  .admin-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
+  }
+  @media (max-width: 700px) { .admin-stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: var(--bg-2); border: 1px solid var(--line);
+    padding: 16px; border-radius: 12px; text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-card .label {
+    font-size: 11px; color: var(--ink-3); text-transform: uppercase;
+    letter-spacing: 1px; margin-top: 6px; font-weight: 600;
+  }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th, .data-table td {
+    padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line);
+  }
+  .data-table th {
+    background: var(--bg-2); font-weight: 600; color: var(--ink-2);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .data-table tr:hover { background: var(--bg-2); }
+  .data-table td { color: var(--ink-2); }
+  .data-table .row-actions { display: flex; gap: 6px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  .btn-mini {
+    padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line);
+    background: var(--bg-2); color: var(--ink-2); font-family: inherit; font-size: 12px;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .btn-mini:hover { background: var(--bg-3); }
+  .btn-mini.approve { background: #10b981; color: #fff; border-color: #10b981; }
+  .btn-mini.approve:hover { background: #059669; }
+  .btn-mini.reject { background: #ef4444; color: #fff; border-color: #ef4444; }
+  .btn-mini.reject:hover { background: #dc2626; }
+  .badge-status {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 10px;
+    font-weight: 600; letter-spacing: .5px; text-transform: uppercase;
+  }
+  .badge-status.pending { background: #f59e0b22; color: #f59e0b; }
+  .badge-status.approved { background: #10b98122; color: #10b981; }
+  .badge-status.rejected { background: #ef444422; color: #ef4444; }
+  .badge-status.active { background: #10b98122; color: #10b981; }
+  .badge-status.expired { background: #6b728022; color: #6b7280; }
+  .admin-tag {
+    background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 700;
+    letter-spacing: .5px;
+  }
+  .plan-tag {
+    background: var(--accent-dim); color: var(--accent); padding: 2px 8px; border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+  }
+  .admin-empty { padding: 40px; text-align: center; color: var(--ink-3); background: var(--bg-2); border-radius: 12px; }
+  .admin-loading { padding: 40px; text-align: center; color: var(--ink-3); }
+  .profile-field { margin-bottom: 16px; }
+  .profile-field label {
+    display: block; font-size: 12px; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .profile-field input {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    background: var(--bg-2); border: 1px solid var(--line); color: var(--ink);
+    font-family: inherit; font-size: 14px;
+  }
+  .profile-field input:focus { outline: none; border-color: var(--accent); background: var(--bg); }
+  .profile-field .readonly { background: var(--bg-3); color: var(--ink-3); cursor: not-allowed; }
+  .profile-status-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+  }
+  @media (max-width: 600px) { .profile-status-row { grid-template-columns: 1fr; } }
 
   .fade-in { animation: fadeUp .8s ease-out both; }
   @keyframes fadeUp {
@@ -1034,13 +1130,17 @@
             </span>
           </div>
           <div style="border-top: 1px solid var(--line); margin: 8px 0;"></div>
+          <button class="user-menu-btn" onclick="openProfileModal()">
+            👤 <span data-i18n-th>โปรไฟล์ของฉัน</span><span data-i18n-en>My Profile</span>
+          </button>
           <button class="user-menu-btn" onclick="openTrialModal()">
-            <span data-i18n-th>ขอทดลองใช้ Extension</span>
-            <span data-i18n-en>Request Trial Access</span>
+            🧪 <span data-i18n-th>ขอทดลองใช้ Extension</span><span data-i18n-en>Request Trial Access</span>
+          </button>
+          <button id="admin-menu-btn" class="user-menu-btn admin-btn" onclick="openAdminModal()" style="display:none;">
+            ⚙️ <span data-i18n-th>ระบบหลังบ้าน (Admin)</span><span data-i18n-en>Admin Dashboard</span>
           </button>
           <button class="user-menu-btn logout" onclick="logout()">
-            <span data-i18n-th>ออกจากระบบ</span>
-            <span data-i18n-en>Sign Out</span>
+            🚪 <span data-i18n-th>ออกจากระบบ</span><span data-i18n-en>Sign Out</span>
           </button>
         </div>
       </div>
@@ -1947,10 +2047,6 @@
           <span>Microsoft</span>
         </button>
       </div>
-      <div class="oauth-hint">
-        <span data-i18n-th><strong>ต้องสมัครสมาชิกก่อน</strong> จึงจะใช้ Google/Microsoft ล็อกอินได้</span>
-        <span data-i18n-en><strong>Sign up first</strong> to log in with Google or Microsoft</span>
-      </div>
       <div class="oauth-divider">
         <span data-i18n-th>หรือ</span>
         <span data-i18n-en>Or</span>
@@ -1977,8 +2073,33 @@
       </form>
     </div>
 
-    <!-- SIGN UP FORM -->
-    <form id="signup-form" style="display:none;" onsubmit="handleSignUp(event)">
+    <!-- SIGN UP -->
+    <div id="signup-container" style="display:none;">
+      <div class="oauth-buttons">
+        <button type="button" class="oauth-btn" onclick="signUpWithProvider('google')">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span><span data-i18n-th>สมัครด้วย Google</span><span data-i18n-en>Sign up with Google</span></span>
+        </button>
+        <button type="button" class="oauth-btn" onclick="signUpWithProvider('azure')">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#F25022" d="M2 2h9.5v9.5H2z"/>
+            <path fill="#7FBA00" d="M12.5 2H22v9.5h-9.5z"/>
+            <path fill="#00A4EF" d="M2 12.5h9.5V22H2z"/>
+            <path fill="#FFB900" d="M12.5 12.5H22V22h-9.5z"/>
+          </svg>
+          <span><span data-i18n-th>สมัครด้วย Microsoft</span><span data-i18n-en>Sign up with Microsoft</span></span>
+        </button>
+      </div>
+      <div class="oauth-divider">
+        <span data-i18n-th>หรือกรอกด้วยตนเอง</span>
+        <span data-i18n-en>Or fill in manually</span>
+      </div>
+      <form id="signup-form" onsubmit="handleSignUp(event)">
       <div class="form-group">
         <label class="form-label">
           <span data-i18n-th>ชื่อ-นามสกุล</span>
@@ -2030,6 +2151,7 @@
         <span data-i18n-en>Create Account →</span>
       </button>
     </form>
+    </div>
 
     <p class="form-note">
       <span data-i18n-th>ระบบสาธิต · ข้อมูลถูกจัดเก็บในเบราว์เซอร์ของคุณเท่านั้น</span>
@@ -2121,6 +2243,175 @@
         <span data-i18n-en>Submit Request →</span>
       </button>
     </form>
+  </div>
+</div>
+
+<!-- PROFILE MODAL (all logged-in users) -->
+<div id="profile-modal" class="modal-backdrop" onclick="if(event.target===this)closeProfileModal()">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeProfileModal()">×</button>
+    <div style="padding: 24px 24px 0;">
+      <h3 style="margin: 0 0 8px;">
+        <span data-i18n-th>โปรไฟล์ของฉัน</span><span data-i18n-en>My Profile</span>
+      </h3>
+      <p class="modal-sub" style="margin: 0 0 20px;">
+        <span data-i18n-th>ข้อมูลส่วนตัวและสถานะการใช้งาน</span>
+        <span data-i18n-en>Your personal information and account status</span>
+      </p>
+    </div>
+    <div class="modal-body">
+      <div class="profile-status-row">
+        <div class="stat-card">
+          <div class="label"><span data-i18n-th>สถานะทดลองใช้</span><span data-i18n-en>Trial Status</span></div>
+          <div id="profile-trial-badge" style="margin-top: 12px;">
+            <span class="badge-status pending">Loading...</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="label"><span data-i18n-th>Subscription</span><span data-i18n-en>Subscription</span></div>
+          <div id="profile-sub-badge" style="margin-top: 12px;">
+            <span class="badge-status expired"><span data-i18n-th>ยังไม่มี</span><span data-i18n-en>None</span></span>
+          </div>
+        </div>
+      </div>
+
+      <form id="profile-form" onsubmit="handleProfileUpdate(event)">
+        <div class="profile-field">
+          <label>Email</label>
+          <input type="email" id="profile-email" class="readonly" readonly />
+        </div>
+        <div class="profile-field">
+          <label><span data-i18n-th>ชื่อ-นามสกุล</span><span data-i18n-en>Full Name</span></label>
+          <input type="text" id="profile-name" required />
+        </div>
+        <div class="profile-field">
+          <label><span data-i18n-th>บริษัท/องค์กร</span><span data-i18n-en>Company / Organization</span></label>
+          <input type="text" id="profile-company" />
+        </div>
+        <div class="profile-field">
+          <label><span data-i18n-th>ตำแหน่ง</span><span data-i18n-en>Role / Position</span></label>
+          <input type="text" id="profile-role" />
+        </div>
+        <div class="profile-field">
+          <label><span data-i18n-th>เบอร์โทรศัพท์</span><span data-i18n-en>Phone</span></label>
+          <input type="tel" id="profile-phone" />
+        </div>
+        <div id="profile-message" style="display:none; padding: 12px; border-radius: 10px; margin-bottom: 12px;"></div>
+        <button type="submit" class="form-submit">
+          <span data-i18n-th>บันทึกการเปลี่ยนแปลง</span><span data-i18n-en>Save Changes</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD MODAL (admin only) -->
+<div id="admin-modal" class="modal-backdrop" onclick="if(event.target===this)closeAdminModal()">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeAdminModal()">×</button>
+    <div style="padding: 24px 24px 0;">
+      <h3 style="margin: 0 0 8px; display: flex; align-items: center; gap: 10px;">
+        ⚙️ <span data-i18n-th>ระบบหลังบ้าน</span><span data-i18n-en>Admin Dashboard</span>
+        <span style="background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: .5px; font-weight: 700;">ADMIN</span>
+      </h3>
+      <p class="modal-sub" style="margin: 0 0 20px;">
+        <span data-i18n-th>จัดการสมาชิก คำขอทดลองใช้ และ subscription</span>
+        <span data-i18n-en>Manage members, trial requests, and subscriptions</span>
+      </p>
+    </div>
+    <div class="modal-body">
+      <div class="admin-stats" id="admin-stats">
+        <div class="stat-card">
+          <div class="num" id="stat-members">-</div>
+          <div class="label"><span data-i18n-th>สมาชิกทั้งหมด</span><span data-i18n-en>Total Members</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-pending">-</div>
+          <div class="label"><span data-i18n-th>รอพิจารณา</span><span data-i18n-en>Pending</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-approved">-</div>
+          <div class="label"><span data-i18n-th>อนุมัติแล้ว</span><span data-i18n-en>Approved</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-active-subs">-</div>
+          <div class="label"><span data-i18n-th>Subscription</span><span data-i18n-en>Active Subs</span></div>
+        </div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="trials" onclick="switchAdminTab('trials')">
+          🧪 <span data-i18n-th>คำขอทดลองใช้</span><span data-i18n-en>Trial Requests</span>
+        </button>
+        <button class="admin-tab" data-tab="members" onclick="switchAdminTab('members')">
+          👥 <span data-i18n-th>สมาชิก</span><span data-i18n-en>Members</span>
+        </button>
+        <button class="admin-tab" data-tab="subs" onclick="switchAdminTab('subs')">
+          💳 <span data-i18n-th>Subscriptions</span><span data-i18n-en>Subscriptions</span>
+        </button>
+      </div>
+
+      <div id="tab-trials" class="admin-tab-content active">
+        <div id="trials-loading" class="admin-loading">Loading...</div>
+        <div id="trials-content" style="display:none;">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span data-i18n-th>วันที่</span><span data-i18n-en>Date</span></th>
+                  <th><span data-i18n-th>ชื่อ / Email</span><span data-i18n-en>Name / Email</span></th>
+                  <th><span data-i18n-th>บริษัท</span><span data-i18n-en>Company</span></th>
+                  <th><span data-i18n-th>ทีม</span><span data-i18n-en>Team</span></th>
+                  <th><span data-i18n-th>สถานะ</span><span data-i18n-en>Status</span></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="trials-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-members" class="admin-tab-content">
+        <div id="members-loading" class="admin-loading">Loading...</div>
+        <div id="members-content" style="display:none;">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span data-i18n-th>วันที่สมัคร</span><span data-i18n-en>Joined</span></th>
+                  <th><span data-i18n-th>ชื่อ</span><span data-i18n-en>Name</span></th>
+                  <th>Email</th>
+                  <th><span data-i18n-th>บริษัท</span><span data-i18n-en>Company</span></th>
+                  <th><span data-i18n-th>ตำแหน่ง</span><span data-i18n-en>Role</span></th>
+                </tr>
+              </thead>
+              <tbody id="members-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-subs" class="admin-tab-content">
+        <div id="subs-loading" class="admin-loading">Loading...</div>
+        <div id="subs-content" style="display:none;">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span data-i18n-th>เริ่มใช้</span><span data-i18n-en>Started</span></th>
+                  <th><span data-i18n-th>สมาชิก</span><span data-i18n-en>Member</span></th>
+                  <th>Plan</th>
+                  <th><span data-i18n-th>สถานะ</span><span data-i18n-en>Status</span></th>
+                  <th><span data-i18n-th>หมดอายุ</span><span data-i18n-en>Expires</span></th>
+                </tr>
+              </thead>
+              <tbody id="subs-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2228,7 +2519,7 @@
     document.getElementById('tab-signin').classList.toggle('active', mode === 'signin');
     document.getElementById('tab-signup').classList.toggle('active', mode === 'signup');
     document.getElementById('signin-container').style.display = mode === 'signin' ? 'block' : 'none';
-    document.getElementById('signup-form').style.display = mode === 'signup' ? 'block' : 'none';
+    document.getElementById('signup-container').style.display = mode === 'signup' ? 'block' : 'none';
     document.getElementById('auth-error').classList.remove('show');
     const isTh = document.documentElement.lang === 'th';
     if (mode === 'signin') {
@@ -2329,6 +2620,14 @@
   }
 
   async function signInWithProvider(provider) {
+    sessionStorage.setItem('bims-oauth-mode', 'signin');
+    await _oauthRedirect(provider);
+  }
+  async function signUpWithProvider(provider) {
+    sessionStorage.setItem('bims-oauth-mode', 'signup');
+    await _oauthRedirect(provider);
+  }
+  async function _oauthRedirect(provider) {
     const isTh = document.documentElement.lang === 'th';
     if (!window.BIMS_USE_BACKEND) {
       showError(isTh
@@ -2336,8 +2635,8 @@
         : 'Configure Supabase to enable Google/Microsoft sign-in');
       return;
     }
-    const { data, error } = await window.supabase.auth.signInWithOAuth({
-      provider: provider, // 'google' or 'azure' (Azure = Microsoft/Hotmail/Outlook)
+    const { error } = await window.supabase.auth.signInWithOAuth({
+      provider: provider,
       options: {
         redirectTo: window.location.origin + window.location.pathname,
         queryParams: provider === 'azure' ? { prompt: 'select_account' } : {}
@@ -2346,7 +2645,7 @@
     if (error) showError(error.message);
   }
 
-  // Handle OAuth redirect callback — enforce "must sign up first" rule
+  // Handle OAuth redirect callback
   async function handleAuthCallback() {
     if (!window.BIMS_USE_BACKEND) return;
     const { data: { session } } = await window.supabase.auth.getSession();
@@ -2356,28 +2655,45 @@
                     session.user.app_metadata.provider !== 'email';
     if (!isOAuth) return;
 
-    // Check if a profile exists for this email (from prior sign-up)
-    const { data: profile } = await window.supabase
-      .from('profiles')
-      .select('id, email')
-      .eq('email', session.user.email)
-      .maybeSingle();
-
+    const mode = sessionStorage.getItem('bims-oauth-mode') || 'signin';
+    sessionStorage.removeItem('bims-oauth-mode');
     const isTh = document.documentElement.lang === 'th';
+
+    const { data: profile } = await window.supabase
+      .from('profiles').select('id, email')
+      .eq('email', session.user.email).maybeSingle();
+
     if (!profile) {
-      // Not signed up — reject
-      await window.supabase.auth.signOut();
-      openAuth('signup');
-      setTimeout(() => {
-        showError(isTh
-          ? 'ไม่พบบัญชีที่ใช้อีเมลนี้ — กรุณาสมัครสมาชิกก่อน'
-          : 'No account found with this email — please sign up first');
-      }, 100);
-      return;
+      if (mode === 'signup') {
+        // Auto-create profile from OAuth metadata
+        const meta = session.user.user_metadata || {};
+        const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
+        const { error: insertErr } = await window.supabase.from('profiles').insert({
+          id: session.user.id, email: session.user.email,
+          full_name: fullName, company: '', role: '', phone: ''
+        });
+        if (insertErr) {
+          await window.supabase.auth.signOut();
+          openAuth('signup');
+          setTimeout(() => showError('Sign up failed: ' + insertErr.message), 100);
+          return;
+        }
+        closeAuth();
+        await updateAuthUI();
+        setTimeout(() => openProfileModal(), 400);
+        return;
+      } else {
+        await window.supabase.auth.signOut();
+        openAuth('signup');
+        setTimeout(() => {
+          showError(isTh
+            ? 'ไม่พบบัญชีที่ใช้อีเมลนี้ — กรุณาสมัครสมาชิกก่อน'
+            : 'No account found with this email — please sign up first');
+        }, 100);
+        return;
+      }
     }
-    // Profile exists — link OAuth identity to profile if not linked
     if (profile.id !== session.user.id) {
-      // OAuth created a new auth user; update profiles.id to keep linkage
       await window.supabase.from('profiles')
         .update({ id: session.user.id })
         .eq('email', session.user.email);
@@ -2450,6 +2766,9 @@
     if (!user) return;
     const payload = {
       user_id: user.id,
+      email: user.email,
+      full_name: user.full_name || user.name || '',
+      company: user.company || '',
       team_size: document.getElementById('trial-team-size').value,
       project_type: document.getElementById('trial-project-type').value,
       expectations: document.getElementById('trial-expectations').value.trim(),
@@ -2478,20 +2797,28 @@
       signin.style.display = 'none';
       signup.style.display = 'none';
       userMenu.style.display = 'block';
-      const first = (user.name || 'U').trim().charAt(0).toUpperCase();
+      const displayName = user.full_name || user.name || user.email.split('@')[0];
+      const first = (displayName || 'U').trim().charAt(0).toUpperCase();
       document.getElementById('user-avatar-initial').textContent = first;
-      document.getElementById('user-name-display').textContent = user.name.split(' ')[0];
-      document.getElementById('user-full-name').textContent = user.name;
+      document.getElementById('user-name-display').textContent = displayName.split(' ')[0];
+      document.getElementById('user-full-name').textContent = displayName;
       document.getElementById('user-email').textContent = user.email;
       const trial = await getUserTrialAsync(user.id);
       const badge = document.getElementById('trial-status');
       if (trial) {
         badge.classList.remove('none');
-        badge.innerHTML = `<span data-i18n-th>รอตรวจสอบ</span><span data-i18n-en>Pending Review</span>`;
+        const status = trial.status || 'pending';
+        const label = status === 'approved' ? { th: 'อนุมัติแล้ว', en: 'Approved' }
+                    : status === 'rejected' ? { th: 'ไม่อนุมัติ', en: 'Rejected' }
+                    : { th: 'รอตรวจสอบ', en: 'Pending Review' };
+        badge.innerHTML = `<span data-i18n-th>${label.th}</span><span data-i18n-en>${label.en}</span>`;
       } else {
         badge.classList.add('none');
         badge.innerHTML = `<span data-i18n-th>ยังไม่สมัคร</span><span data-i18n-en>Not Requested</span>`;
       }
+      // Admin check
+      const adminBtn = document.getElementById('admin-menu-btn');
+      if (adminBtn) adminBtn.style.display = isAdmin(user.email) ? 'block' : 'none';
     } else {
       signin.style.display = 'inline-flex';
       signup.style.display = 'inline-flex';
@@ -2542,6 +2869,249 @@
     document.documentElement.setAttribute('data-theme', theme);
     try { localStorage.setItem('bims-theme', theme); } catch(e) {}
   }
+  // ==================== ADMIN CONFIG ====================
+  const ADMIN_EMAILS = ['p.termpong@gmail.com'];
+  function isAdmin(email) {
+    if (!email) return false;
+    return ADMIN_EMAILS.includes(String(email).toLowerCase().trim());
+  }
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+  }
+
+  // ==================== PROFILE MODAL ====================
+  async function openProfileModal() {
+    closeUserMenu();
+    const user = await getCurrentUserAsync();
+    if (!user) { openAuth('signin'); return; }
+    document.getElementById('profile-email').value = user.email || '';
+    document.getElementById('profile-name').value = user.full_name || user.name || '';
+    document.getElementById('profile-company').value = user.company || '';
+    document.getElementById('profile-role').value = user.role || '';
+    document.getElementById('profile-phone').value = user.phone || '';
+    // Status badges
+    const trial = await getUserTrialAsync(user.id);
+    const trialBadge = document.getElementById('profile-trial-badge');
+    if (trial) {
+      const s = trial.status || 'pending';
+      const cls = s === 'approved' ? 'approved' : s === 'rejected' ? 'rejected' : 'pending';
+      const label = s === 'approved' ? { th: 'อนุมัติแล้ว', en: 'Approved' }
+                  : s === 'rejected' ? { th: 'ไม่อนุมัติ', en: 'Rejected' }
+                  : { th: 'รอตรวจสอบ', en: 'Pending' };
+      trialBadge.innerHTML = `<span class="badge-status ${cls}"><span data-i18n-th>${label.th}</span><span data-i18n-en>${label.en}</span></span>`;
+    } else {
+      trialBadge.innerHTML = `<span class="badge-status expired"><span data-i18n-th>ยังไม่สมัคร</span><span data-i18n-en>Not Requested</span></span>`;
+    }
+    let sub = null;
+    if (window.BIMS_USE_BACKEND) {
+      const { data } = await window.supabase.from('subscriptions').select('*').eq('user_id', user.id).maybeSingle();
+      sub = data;
+    }
+    const subBadge = document.getElementById('profile-sub-badge');
+    if (sub) {
+      subBadge.innerHTML = `<span class="badge-status active">${(sub.plan || '').toUpperCase()}</span>`;
+    } else {
+      subBadge.innerHTML = `<span class="badge-status expired"><span data-i18n-th>ยังไม่มี</span><span data-i18n-en>None</span></span>`;
+    }
+    document.getElementById('profile-modal').classList.add('open');
+    setLang(localStorage.getItem('bims-lang') || 'th');
+  }
+  function closeProfileModal() {
+    document.getElementById('profile-modal').classList.remove('open');
+    document.getElementById('profile-message').style.display = 'none';
+  }
+  async function handleProfileUpdate(event) {
+    event.preventDefault();
+    const user = await getCurrentUserAsync();
+    if (!user) return;
+    const msg = document.getElementById('profile-message');
+    const updates = {
+      full_name: document.getElementById('profile-name').value.trim(),
+      company: document.getElementById('profile-company').value.trim(),
+      role: document.getElementById('profile-role').value.trim(),
+      phone: document.getElementById('profile-phone').value.trim(),
+      updated_at: new Date().toISOString()
+    };
+    if (window.BIMS_USE_BACKEND) {
+      const { error } = await window.supabase.from('profiles').update(updates).eq('id', user.id);
+      if (error) {
+        msg.style.display = 'block';
+        msg.style.background = '#ef444422'; msg.style.color = '#ef4444';
+        msg.textContent = 'Error: ' + error.message;
+        return;
+      }
+    } else {
+      const sess = getSession();
+      if (sess) {
+        sess.name = updates.full_name;
+        sess.company = updates.company;
+        sess.role = updates.role;
+        sess.phone = updates.phone;
+        setSession(sess);
+      }
+    }
+    msg.style.display = 'block';
+    msg.style.background = '#10b98122'; msg.style.color = '#10b981';
+    msg.innerHTML = '<span data-i18n-th>บันทึกเรียบร้อย ✓</span><span data-i18n-en>Saved successfully ✓</span>';
+    setLang(localStorage.getItem('bims-lang') || 'th');
+    await updateAuthUI();
+    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+  }
+
+  // ==================== ADMIN DASHBOARD ====================
+  async function openAdminModal() {
+    closeUserMenu();
+    const user = await getCurrentUserAsync();
+    if (!user || !isAdmin(user.email)) { alert('Access denied. Admin only.'); return; }
+    document.getElementById('admin-modal').classList.add('open');
+    switchAdminTab('trials');
+    await loadAdminStats();
+    setLang(localStorage.getItem('bims-lang') || 'th');
+  }
+  function closeAdminModal() {
+    document.getElementById('admin-modal').classList.remove('open');
+  }
+  function switchAdminTab(tab) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    if (tab === 'trials') loadAdminTrials();
+    if (tab === 'members') loadAdminMembers();
+    if (tab === 'subs') loadAdminSubs();
+  }
+  async function loadAdminStats() {
+    if (!window.BIMS_USE_BACKEND) {
+      ['stat-members','stat-pending','stat-approved','stat-active-subs'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+      });
+      return;
+    }
+    try {
+      const [members, pending, approved, subs] = await Promise.all([
+        window.supabase.from('profiles').select('id', { count: 'exact', head: true }),
+        window.supabase.from('trial_requests').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+        window.supabase.from('trial_requests').select('id', { count: 'exact', head: true }).eq('status', 'approved'),
+        window.supabase.from('subscriptions').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+      ]);
+      document.getElementById('stat-members').textContent = members.count ?? 0;
+      document.getElementById('stat-pending').textContent = pending.count ?? 0;
+      document.getElementById('stat-approved').textContent = approved.count ?? 0;
+      document.getElementById('stat-active-subs').textContent = subs.count ?? 0;
+    } catch (e) { console.error(e); }
+  }
+  async function loadAdminTrials() {
+    const loading = document.getElementById('trials-loading');
+    const content = document.getElementById('trials-content');
+    const tbody = document.getElementById('trials-tbody');
+    loading.style.display = 'block'; content.style.display = 'none';
+    if (!window.BIMS_USE_BACKEND) {
+      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
+    }
+    try {
+      const { data, error } = await window.supabase
+        .from('trial_requests').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        loading.innerHTML = '<div class="admin-empty">ยังไม่มีคำขอทดลองใช้</div>'; return;
+      }
+      tbody.innerHTML = data.map(t => {
+        const date = new Date(t.created_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
+        const status = t.status || 'pending';
+        return `<tr>
+          <td>${date}</td>
+          <td><strong>${escapeHtml(t.full_name || '-')}</strong><br><small style="color:var(--ink-3)">${escapeHtml(t.email)}</small></td>
+          <td>${escapeHtml(t.company || '-')}</td>
+          <td>${escapeHtml(t.team_size || '-')}<br><small style="color:var(--ink-3)">${escapeHtml(t.project_type || '')}</small></td>
+          <td><span class="badge-status ${status}">${status}</span></td>
+          <td class="row-actions">
+            ${status === 'pending' ? `
+              <button class="btn-mini approve" onclick="updateTrialStatus('${t.id}', 'approved')">✓</button>
+              <button class="btn-mini reject" onclick="updateTrialStatus('${t.id}', 'rejected')">✗</button>
+            ` : `<button class="btn-mini" onclick="updateTrialStatus('${t.id}', 'pending')">↺</button>`}
+          </td>
+        </tr>`;
+      }).join('');
+      loading.style.display = 'none'; content.style.display = 'block';
+    } catch (e) {
+      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
+    }
+  }
+  async function updateTrialStatus(id, status) {
+    const updates = { status, updated_at: new Date().toISOString() };
+    if (status === 'approved') {
+      updates.approved_at = new Date().toISOString();
+      updates.expires_at = new Date(Date.now() + 30 * 86400000).toISOString();
+    }
+    const { error } = await window.supabase.from('trial_requests').update(updates).eq('id', id);
+    if (error) { alert('Error: ' + error.message); return; }
+    await loadAdminStats();
+    await loadAdminTrials();
+  }
+  async function loadAdminMembers() {
+    const loading = document.getElementById('members-loading');
+    const content = document.getElementById('members-content');
+    const tbody = document.getElementById('members-tbody');
+    loading.style.display = 'block'; content.style.display = 'none';
+    if (!window.BIMS_USE_BACKEND) {
+      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
+    }
+    try {
+      const { data, error } = await window.supabase
+        .from('profiles').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        loading.innerHTML = '<div class="admin-empty">ยังไม่มีสมาชิก</div>'; return;
+      }
+      tbody.innerHTML = data.map(p => {
+        const date = new Date(p.created_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
+        const isAdm = isAdmin(p.email);
+        return `<tr>
+          <td>${date}</td>
+          <td><strong>${escapeHtml(p.full_name || '-')}</strong>${isAdm ? ' <span class="admin-tag">ADMIN</span>' : ''}</td>
+          <td>${escapeHtml(p.email)}</td>
+          <td>${escapeHtml(p.company || '-')}</td>
+          <td>${escapeHtml(p.role || '-')}</td>
+        </tr>`;
+      }).join('');
+      loading.style.display = 'none'; content.style.display = 'block';
+    } catch (e) {
+      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
+    }
+  }
+  async function loadAdminSubs() {
+    const loading = document.getElementById('subs-loading');
+    const content = document.getElementById('subs-content');
+    const tbody = document.getElementById('subs-tbody');
+    loading.style.display = 'block'; content.style.display = 'none';
+    if (!window.BIMS_USE_BACKEND) {
+      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
+    }
+    try {
+      const { data, error } = await window.supabase
+        .from('subscriptions').select('*, profiles(email, full_name)').order('created_at', { ascending: false });
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        loading.innerHTML = '<div class="admin-empty">ยังไม่มี subscription</div>'; return;
+      }
+      tbody.innerHTML = data.map(s => {
+        const started = new Date(s.started_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
+        const expires = s.expires_at ? new Date(s.expires_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' }) : '-';
+        const member = s.profiles ? (s.profiles.full_name || s.profiles.email) : '-';
+        return `<tr>
+          <td>${started}</td>
+          <td>${escapeHtml(member)}</td>
+          <td><span class="plan-tag">${s.plan}</span></td>
+          <td><span class="badge-status ${s.status}">${s.status}</span></td>
+          <td>${expires}</td>
+        </tr>`;
+      }).join('');
+      loading.style.display = 'none'; content.style.display = 'block';
+    } catch (e) {
+      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
+    }
+  }
+
   function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     setTheme(current === 'dark' ? 'light' : 'dark');
@@ -2582,5 +3152,3 @@
 
 </body>
 </html>
-
-

@@ -981,7 +981,35 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-</style>
+
+  /* LICENSE DASHBOARD */
+  .license-modal { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(14,27,51,.36); backdrop-filter:blur(10px); }
+  .license-modal.open { display:flex; }
+  .license-card { position:relative; width:min(920px,100%); max-height:calc(100vh - 48px); overflow:auto; padding:28px 38px 26px; border:1px solid #dce8fb; border-radius:20px; background:linear-gradient(135deg,#fff 0%,#f6faff 100%); box-shadow:0 28px 70px rgba(33,74,130,.25); color:#14254b; }
+  .license-card:before { content:""; position:absolute; right:0; top:0; width:32%; height:180px; background:linear-gradient(135deg,rgba(204,227,255,.7),rgba(232,243,255,.08)); clip-path:polygon(35% 0,100% 0,100% 100%,0 100%); pointer-events:none; }
+  .license-head { position:relative; display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+  .license-brand { display:flex; align-items:center; gap:11px; font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; }
+  .license-brand-mark { display:grid; place-items:center; width:33px; height:33px; border-radius:9px; color:#fff; background:linear-gradient(135deg,#ff8a1e,#ec5d13); box-shadow:0 8px 16px rgba(236,93,19,.25); }
+  .license-brand span { color:#8392aa; font-weight:500; }
+  .license-close { position:relative; border:0; background:none; color:#17243a; font-size:33px; line-height:1; cursor:pointer; padding:2px 8px; }
+  .license-title-row { position:relative; display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:25px; }
+  .license-title-row h2 { margin:0; font-size:42px; letter-spacing:-1.6px; color:#111b30; }
+  .license-title-row h2 b { color:#1659df; }
+  .license-subtitle { margin:4px 0 0; color:#8493ac; font-size:17px; }
+  .license-live { display:flex; align-items:center; gap:11px; min-width:158px; padding:12px 18px; border-radius:28px; color:#087c36; background:#dff9eb; }
+  .license-live-dot { width:14px; height:14px; border-radius:50%; background:#13ca57; box-shadow:0 0 0 7px rgba(19,202,87,.14); }
+  .license-live small { display:block; color:#6b8196; margin-top:2px; }
+  .license-grid { position:relative; border:1px solid #dbe7f7; border-radius:16px; padding:12px; background:rgba(255,255,255,.73); }
+  .license-row { display:grid; grid-template-columns:45px 140px 1fr 40px; align-items:center; gap:12px; min-height:54px; margin:3px 0; padding:7px 9px; border-radius:11px; background:linear-gradient(90deg,#fff,#edf5ff); }
+  .license-icon { display:grid; place-items:center; height:36px; width:36px; border-radius:10px; font-size:19px; }
+  .license-label { color:#637493; font-size:15px; }
+  .license-value { color:#182747; font-size:16px; font-weight:700; overflow-wrap:anywhere; }
+  .license-copy { height:33px; width:33px; border:1px solid #d7e3f3; border-radius:9px; color:#6680a1; background:#fff; cursor:pointer; font-size:16px; }
+  .license-copy:hover { border-color:#2167e9; color:#2167e9; }
+  .license-foot { position:relative; display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding-top:18px; border-top:1px solid #dbe7f7; }
+  .license-foot small { display:block; color:#7888a5; margin-top:2px; }
+  .license-logout { border:0; border-radius:12px; padding:14px 26px; background:linear-gradient(135deg,#2677f4,#074bd8); color:#fff; font:700 16px 'Space Grotesk',sans-serif; cursor:pointer; box-shadow:0 9px 18px rgba(20,91,220,.24); }
+  @media (max-width:650px) { .license-card{padding:22px 16px}.license-title-row h2{font-size:31px}.license-live{min-width:auto;padding:10px}.license-title-row{align-items:flex-start}.license-grid{padding:7px}.license-row{grid-template-columns:38px 1fr 34px;gap:8px}.license-label{display:none}.license-value{font-size:13px}.license-foot{align-items:flex-start;gap:14px}.license-logout{padding:12px 15px;font-size:14px} }</style>
 </head>
 <body>
 
@@ -1130,9 +1158,6 @@
             </span>
           </div>
           <div style="border-top: 1px solid var(--line); margin: 8px 0;"></div>
-          <button class="user-menu-btn" onclick="openProfileModal()">
-            👤 <span data-i18n-th>โปรไฟล์ของฉัน</span><span data-i18n-en>My Profile</span>
-          </button>
           <button class="user-menu-btn" onclick="openTrialModal()">
             🧪 <span data-i18n-th>ขอทดลองใช้ Extension</span><span data-i18n-en>Request Trial Access</span>
           </button>
@@ -1148,6 +1173,16 @@
   </div>
 </nav>
 
+
+<!-- LICENSE DASHBOARD -->
+<div id="license-dashboard" class="license-modal" onclick="if(event.target===this)closeLicenseDashboard()">
+  <section class="license-card" role="dialog" aria-modal="true" aria-labelledby="license-title">
+    <div class="license-head"><div class="license-brand"><span class="license-brand-mark">◆</span>BIM <span>Solutions&nbsp; | &nbsp;Manage License</span></div><button class="license-close" onclick="closeLicenseDashboard()" aria-label="Close">×</button></div>
+    <div class="license-title-row"><div><h2 id="license-title">License <b>Dashboard</b></h2><p class="license-subtitle">View your current license information and account status</p></div><div id="license-live" class="license-live"><span class="license-live-dot"></span><div><b>Online</b><small>Checking license</small></div></div></div>
+    <div id="license-grid" class="license-grid"></div>
+    <div class="license-foot"><div><b>BIM Solutions</b><small>Smart Tools for Better Construction</small></div><button class="license-logout" onclick="logoutFromDashboard()">⇥&nbsp; Logout</button></div>
+  </section>
+</div>
 <!-- HERO -->
 <header class="hero">
   <div class="grid-bg"></div>
@@ -2702,6 +2737,45 @@
     await updateAuthUI();
   }
 
+
+  function licenseKey(prefix, value) {
+    const clean = (value || 'BIM-SOLUTIONS-ONLINE').replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    const parts = [];
+    for (let i = 0; i < 4; i++) parts.push((clean.slice(i * 8, i * 8 + 8) || '00000000').padEnd(8, '0'));
+    return prefix + '-' + parts.join('-');
+  }
+  function copyLicenseValue(value) {
+    navigator.clipboard?.writeText(value).then(() => showToast('Copied to clipboard')).catch(() => {});
+  }
+  async function openLicenseDashboard() {
+    const user = await getCurrentUserAsync();
+    if (!user) { openAuth('signin'); return; }
+    closeUserMenu();
+    let license = { valid:false, plan:'Not provided', expires_at:null };
+    let subscription = null;
+    if (window.BIMS_USE_BACKEND) {
+      const { data } = await window.supabase.rpc('check_license');
+      license = data || license;
+      const result = await window.supabase.from('subscriptions').select('*').eq('user_id', user.id).order('started_at', { ascending:false }).limit(1).maybeSingle();
+      subscription = result.data;
+    }
+    const email = user.email || 'Not provided';
+    const displayName = user.name || email;
+    const active = !!license.valid;
+    const expires = license.expires_at ? new Date(license.expires_at).toLocaleDateString() : (active ? 'Lifetime' : 'Not provided');
+    const orderDate = subscription?.started_at ? new Date(subscription.started_at).toLocaleDateString() : 'Not provided';
+    const fields = [
+      ['👤','User',displayName], ['✉','E-Mail',email], ['🔑','Product Key',licenseKey('BIMS-'+(license.plan || 'DEV').toUpperCase(), user.id)],
+      ['▤','License Key',licenseKey('LIC-'+(license.plan || 'DEV').toUpperCase(), user.id)], ['▣','Order date',orderDate], ['◷','Expires',expires],
+      ['✓','Status',active ? 'Online (Yes)' : 'No active license']
+    ];
+    document.getElementById('license-grid').innerHTML = fields.map(([icon,label,value],index) => `<div class="license-row"><span class="license-icon" style="background:${['#e7f2ff','#eaf4ff','#fff3e7','#f1eaff','#e8fff0','#fff0f0','#e7fff0'][index]}">${icon}</span><span class="license-label">${label}</span><span class="license-value">${value}</span><button class="license-copy" title="Copy" onclick="copyLicenseValue(${JSON.stringify(value)})">⧉</button></div>`).join('');
+    const live = document.getElementById('license-live');
+    live.innerHTML = `<span class="license-live-dot" style="background:${active ? '#13ca57' : '#f25c54'}"></span><div><b>${active ? 'Online' : 'Offline'}</b><small>${active ? 'License Active' : 'License inactive'}</small></div>`;
+    document.getElementById('license-dashboard').classList.add('open');
+  }
+  function closeLicenseDashboard() { document.getElementById('license-dashboard').classList.remove('open'); }
+  async function logoutFromDashboard() { closeLicenseDashboard(); await logout(); }
   async function logout() {
     if (window.BIMS_USE_BACKEND) {
       await window.supabase.auth.signOut();
@@ -2797,8 +2871,6 @@
       signin.style.display = 'none';
       signup.style.display = 'none';
       userMenu.style.display = 'block';
-      const displayName = user.full_name || user.name || user.email.split('@')[0];
-      const first = (displayName || 'U').trim().charAt(0).toUpperCase();
       document.getElementById('user-avatar-initial').textContent = first;
       document.getElementById('user-name-display').textContent = displayName.split(' ')[0];
       document.getElementById('user-full-name').textContent = displayName;

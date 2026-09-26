@@ -1158,7 +1158,12 @@
             </span>
           </div>
           <div style="border-top: 1px solid var(--line); margin: 8px 0;"></div>
-          <button class="user-menu-btn" onclick="openTrialModal()">
+          <button class="user-menu-btn" onclick="openProfileModal()">
+            👤 <span data-i18n-th>โปรไฟล์ของฉัน</span><span data-i18n-en>My Profile</span>
+          </button>
+          <button class="user-menu-btn" onclick="openLicenseDashboard()">
+            <span data-i18n-th>จัดการ License</span><span data-i18n-en>Manage License</span>
+          </button>          <button class="user-menu-btn" onclick="openTrialModal()">
             🧪 <span data-i18n-th>ขอทดลองใช้ Extension</span><span data-i18n-en>Request Trial Access</span>
           </button>
           <button id="admin-menu-btn" class="user-menu-btn admin-btn" onclick="openAdminModal()" style="display:none;">
@@ -2871,6 +2876,8 @@
       signin.style.display = 'none';
       signup.style.display = 'none';
       userMenu.style.display = 'block';
+      const displayName = user.full_name || user.name || user.email || 'User';
+      const first = displayName.trim().charAt(0).toUpperCase();
       document.getElementById('user-avatar-initial').textContent = first;
       document.getElementById('user-name-display').textContent = displayName.split(' ')[0];
       document.getElementById('user-full-name').textContent = displayName;
@@ -3224,3 +3231,4 @@
 
 </body>
 </html>
+

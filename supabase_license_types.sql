@@ -1,0 +1,121 @@
+-- BIM Solutions license catalogue and secure trial approval workflow.
+create table if not exists public.license_types (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique,
+  name text not null,
+  duration_days integer not null check (duration_days > 0),
+  is_active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+alter table public.subscriptions add column if not exists license_type_id uuid references public.license_types(id);
+alter table public.subscriptions add column if not exists is_active boolean not null default true;
+alter table public.subscriptions add column if not exists started_at timestamptz not null default now();
+
+insert into public.license_types (code, name, duration_days, is_active) values
+  ('TRIAL-7D', 'Trial 7 Days', 7, true),
+  ('TRIAL-30D', 'Trial 30 Days', 30, true),
+  ('TRIAL-60D', 'Trial 60 Days', 60, true),
+  ('TRIAL-90D', 'Trial 90 Days', 90, true),
+  ('TRIAL-365D', 'Trial 365 Days', 365, true)
+on conflict (code) do update set name = excluded.name, duration_days = excluded.duration_days, is_active = true;
+
+create or replace function public.bims_is_admin()
+returns boolean language sql stable security definer set search_path = public, auth as $$
+  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'p.termpong@gmail.com';
+$$;
+
+create or replace function public.admin_license_types()
+returns table (id uuid, code text, name text, duration_days integer)
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  return query select lt.id, lt.code, lt.name, lt.duration_days from public.license_types lt where lt.is_active = true order by lt.duration_days;
+end;
+$$;
+
+create or replace function public.admin_set_trial_license(request_id uuid, new_status text, selected_license_type uuid default null)
+returns json language plpgsql security definer set search_path = public, auth as $$
+declare target_user uuid; selected_type record; expiry timestamptz;
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  if new_status not in ('pending','approved','rejected') then raise exception 'Invalid trial status'; end if;
+  select user_id into target_user from public.trial_requests where id = request_id;
+  if target_user is null then raise exception 'Trial request not found'; end if;
+  if new_status = 'approved' then
+    if selected_license_type is null then raise exception 'Select a license type'; end if;
+    select * into selected_type from public.license_types where id = selected_license_type and is_active = true;
+    if selected_type is null then raise exception 'License type is unavailable'; end if;
+    expiry := now() + make_interval(days => selected_type.duration_days);
+  end if;
+  update public.trial_requests set status = new_status,
+    approved_at = case when new_status = 'approved' then now() else approved_at end,
+    expires_at = case when new_status = 'approved' then expiry else expires_at end
+  where id = request_id;
+  if new_status = 'approved' then
+    update public.subscriptions set is_active = false where user_id = target_user and plan = 'trial' and is_active = true;
+    insert into public.subscriptions (user_id, plan, license_type_id, started_at, expires_at, is_active)
+    values (target_user, 'trial', selected_type.id, now(), expiry, true);
+  end if;
+  return json_build_object('ok', true, 'status', new_status, 'license_type', coalesce(selected_type.name, null), 'expires_at', case when new_status = 'approved' then expiry else null end);
+end;
+$$;
+
+create or replace function public.admin_license_subscriptions()
+returns table (id uuid, user_id uuid, email text, plan text, license_type_name text, duration_days integer, started_at timestamptz, expires_at timestamptz, is_active boolean)
+language plpgsql security definer set search_path = public, auth as $$
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  return query select s.id, s.user_id, u.email::text, s.plan, coalesce(lt.name, s.plan), lt.duration_days, s.started_at, s.expires_at, s.is_active
+  from public.subscriptions s join auth.users u on u.id = s.user_id left join public.license_types lt on lt.id = s.license_type_id order by s.started_at desc;
+end;
+$$;
+
+
+-- The following RPCs make this migration self-contained; no previous admin migration is required.
+create or replace function public.admin_license_stats()
+returns json language plpgsql security definer set search_path = public, auth as $$
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  return json_build_object(
+    'members', (select count(*) from auth.users),
+    'pending', (select count(*) from public.trial_requests where status = 'pending'),
+    'approved', (select count(*) from public.trial_requests where status = 'approved'),
+    'active_subscriptions', (select count(*) from public.subscriptions where is_active = true and (expires_at is null or expires_at > now()))
+  );
+end;
+$$;
+
+create or replace function public.admin_trial_requests()
+returns table (id uuid, user_id uuid, email text, team_size text, project_type text, expectations text, status text, created_at timestamptz, approved_at timestamptz, expires_at timestamptz)
+language plpgsql security definer set search_path = public, auth as $$
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  return query select t.id, t.user_id, u.email::text, t.team_size, t.project_type, t.expectations, t.status, t.submitted_at, t.approved_at, t.expires_at
+  from public.trial_requests t join auth.users u on u.id = t.user_id order by t.submitted_at desc;
+end;
+$$;
+
+create or replace function public.admin_license_members()
+returns table (user_id uuid, email text, created_at timestamptz, last_sign_in_at timestamptz)
+language plpgsql security definer set search_path = public, auth as $$
+begin
+  if not public.bims_is_admin() then raise exception 'Admin access required'; end if;
+  return query select u.id, u.email::text, u.created_at, u.last_sign_in_at from auth.users u order by u.created_at desc;
+end;
+$$;
+revoke all on function public.bims_is_admin() from public;
+revoke all on function public.admin_license_stats() from public;
+revoke all on function public.admin_trial_requests() from public;
+revoke all on function public.admin_license_members() from public;
+revoke all on function public.admin_license_types() from public;
+revoke all on function public.admin_set_trial_license(uuid, text, uuid) from public;
+revoke all on function public.admin_license_subscriptions() from public;
+grant execute on function public.bims_is_admin() to authenticated;
+grant execute on function public.admin_license_stats() to authenticated;
+grant execute on function public.admin_trial_requests() to authenticated;
+grant execute on function public.admin_license_members() to authenticated;
+grant execute on function public.admin_license_types() to authenticated;
+grant execute on function public.admin_set_trial_license(uuid, text, uuid) to authenticated;
+grant execute on function public.admin_license_subscriptions() to authenticated;
+

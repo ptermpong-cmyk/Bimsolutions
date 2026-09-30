@@ -926,7 +926,10 @@
   .data-table td { color: var(--ink-2); }
   .data-table .row-actions { display: flex; gap: 6px; }
   .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
-  .btn-mini {
+  .  .license-type-picker {
+    min-width: 150px; height: 31px; border: 1px solid #cbd8ed; border-radius: 7px;
+    background: #fff; color: #1e355c; font-size: 11px; padding: 0 5px;
+  }btn-mini {
     padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line);
     background: var(--bg-2); color: var(--ink-2); font-family: inherit; font-size: 12px;
     cursor: pointer; transition: all .15s ease;
@@ -3075,34 +3078,31 @@
       document.getElementById('stat-active-subs').textContent = stats.active_subscriptions ?? 0;
     } catch (e) { console.error(e); }
   }
-  async function loadAdminTrials() {
+    async function loadAdminTrials() {
     const loading = document.getElementById('trials-loading'), content = document.getElementById('trials-content'), tbody = document.getElementById('trials-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
     if (!window.BIMS_USE_BACKEND) { loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return; }
     try {
-      const data = await adminRpc('admin_trial_requests');
+      const [data, licenseTypes] = await Promise.all([adminRpc('admin_trial_requests'), adminRpc('admin_license_types')]);
       if (!data?.length) { loading.innerHTML = '<div class="admin-empty">ยังไม่มีคำขอทดลองใช้</div>'; return; }
+      const options = (licenseTypes || []).map(type => `<option value="${type.id}">${escapeHtml(type.name)} (${type.duration_days} วัน)</option>`).join('');
       tbody.innerHTML = data.map(t => {
         const status = t.status || 'pending';
-        return `<tr><td>${adminDate(t.created_at)}</td><td><strong>${escapeHtml(t.email || '-')}</strong></td><td>${escapeHtml(t.expectations || '-')}</td><td>${escapeHtml(t.team_size || '-')}<br><small style="color:var(--ink-3)">${escapeHtml(t.project_type || '')}</small></td><td><span class="badge-status ${status}">${status}</span></td><td class="row-actions">${status === 'pending' ? `<button class="btn-mini approve" title="Approve trial" onclick="updateTrialStatus('${t.id}', 'approved')">✓</button><button class="btn-mini reject" title="Reject" onclick="updateTrialStatus('${t.id}', 'rejected')">✗</button>` : `<button class="btn-mini" title="Set pending" onclick="updateTrialStatus('${t.id}', 'pending')">↺</button>`}</td></tr>`;
+        const picker = `<select class="license-type-picker" id="license-type-${t.id}" aria-label="License type">${options}</select>`;
+        const actions = status === 'pending'
+          ? `${picker}<button class="btn-mini approve" title="อนุมัติ License" onclick="updateTrialStatus('${t.id}', 'approved', document.getElementById('license-type-${t.id}').value)">✓</button><button class="btn-mini reject" title="ไม่อนุมัติ" onclick="updateTrialStatus('${t.id}', 'rejected')">✗</button>`
+          : `<button class="btn-mini" title="เปลี่ยนเป็นรอดำเนินการ" onclick="updateTrialStatus('${t.id}', 'pending')">↺</button>`;
+        return `<tr><td>${adminDate(t.created_at)}</td><td><strong>${escapeHtml(t.email || '-')}</strong></td><td>${escapeHtml(t.expectations || '-')}</td><td>${escapeHtml(t.team_size || '-')}<br><small style="color:var(--ink-3)">${escapeHtml(t.project_type || '')}</small></td><td><span class="badge-status ${status}">${status}</span></td><td class="row-actions">${actions}</td></tr>`;
       }).join('');
       loading.style.display = 'none'; content.style.display = 'block';
     } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
   }
-  async function updateTrialStatus(id, status) {
-    let days = 30;
-    if (status === 'approved') {
-      const answer = prompt('Trial duration (days)', '30');
-      if (answer === null) return;
-      days = Number(answer);
-      if (!Number.isInteger(days) || days < 1 || days > 365) { alert('Enter a whole number from 1 to 365.'); return; }
-    }
+  async function updateTrialStatus(id, status, licenseTypeId = null) {
     try {
-      await adminRpc('admin_set_trial_license', { request_id:id, new_status:status, duration_days:days });
+      await adminRpc('admin_set_trial_license', { request_id:id, new_status:status, selected_license_type:licenseTypeId });
       await Promise.all([loadAdminStats(), loadAdminTrials(), loadAdminSubs()]);
     } catch (e) { alert('Unable to update trial license: ' + e.message); }
-  }
-  async function loadAdminMembers() {
+  }async function loadAdminMembers() {
     const loading = document.getElementById('members-loading'), content = document.getElementById('members-content'), tbody = document.getElementById('members-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
     if (!window.BIMS_USE_BACKEND) { loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return; }
@@ -3165,5 +3165,6 @@
 
 </body>
 </html>
+
 
 

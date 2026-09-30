@@ -1,12 +1,20 @@
 -- BIM Solutions license catalogue and secure trial approval workflow.
 create table if not exists public.license_types (
   id uuid primary key default gen_random_uuid(),
-  code text not null unique,
-  name text not null,
-  duration_days integer not null check (duration_days > 0),
-  is_active boolean not null default true,
-  created_at timestamptz not null default now()
+  code text,
+  name text,
+  duration_days integer,
+  is_active boolean default true,
+  created_at timestamptz default now()
 );
+
+-- Upgrade an existing license_types table created by an older version.
+alter table public.license_types add column if not exists code text;
+alter table public.license_types add column if not exists name text;
+alter table public.license_types add column if not exists duration_days integer;
+alter table public.license_types add column if not exists is_active boolean default true;
+alter table public.license_types add column if not exists created_at timestamptz default now();
+create unique index if not exists license_types_code_unique on public.license_types (code);
 
 alter table public.subscriptions add column if not exists license_type_id uuid references public.license_types(id);
 alter table public.subscriptions add column if not exists is_active boolean not null default true;
@@ -118,5 +126,6 @@ grant execute on function public.admin_license_members() to authenticated;
 grant execute on function public.admin_license_types() to authenticated;
 grant execute on function public.admin_set_trial_license(uuid, text, uuid) to authenticated;
 grant execute on function public.admin_license_subscriptions() to authenticated;
+
 
 

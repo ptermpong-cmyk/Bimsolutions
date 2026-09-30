@@ -22,7 +22,7 @@ on conflict (code) do update set name = excluded.name, duration_days = excluded.
 
 create or replace function public.bims_is_admin()
 returns boolean language sql stable security definer set search_path = public, auth as $$
-  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'p.termpong@gmail.com';
+  select lower(coalesce(auth.jwt() ->> 'email', '')) in ('p.termpong@gmail.com', 'chaisin.kiti@gmail.com');
 $$;
 
 create or replace function public.admin_license_types()
@@ -118,4 +118,5 @@ grant execute on function public.admin_license_members() to authenticated;
 grant execute on function public.admin_license_types() to authenticated;
 grant execute on function public.admin_set_trial_license(uuid, text, uuid) to authenticated;
 grant execute on function public.admin_license_subscriptions() to authenticated;
+
 

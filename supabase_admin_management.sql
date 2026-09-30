@@ -6,7 +6,7 @@ stable
 security definer
 set search_path = public, auth
 as $$
-  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'p.termpong@gmail.com';
+  select lower(coalesce(auth.jwt() ->> 'email', '')) in ('p.termpong@gmail.com', 'chaisin.kiti@gmail.com');
 $$;
 
 create or replace function public.admin_license_stats()
@@ -110,3 +110,4 @@ grant execute on function public.admin_trial_requests() to authenticated;
 grant execute on function public.admin_set_trial_license(uuid, text, integer) to authenticated;
 grant execute on function public.admin_license_members() to authenticated;
 grant execute on function public.admin_license_subscriptions() to authenticated;
+

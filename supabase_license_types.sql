@@ -11,6 +11,7 @@ create table if not exists public.license_types (
 -- Upgrade an existing license_types table created by an older version.
 alter table public.license_types add column if not exists code text;
 alter table public.license_types add column if not exists name text;
+alter table public.license_types add column if not exists name_th text;
 alter table public.license_types add column if not exists duration_days integer;
 alter table public.license_types add column if not exists is_active boolean default true;
 alter table public.license_types add column if not exists created_at timestamptz default now();
@@ -20,13 +21,13 @@ alter table public.subscriptions add column if not exists license_type_id uuid r
 alter table public.subscriptions add column if not exists is_active boolean not null default true;
 alter table public.subscriptions add column if not exists started_at timestamptz not null default now();
 
-insert into public.license_types (code, name, duration_days, is_active) values
-  ('TRIAL-7D', 'Trial 7 Days', 7, true),
-  ('TRIAL-30D', 'Trial 30 Days', 30, true),
-  ('TRIAL-60D', 'Trial 60 Days', 60, true),
-  ('TRIAL-90D', 'Trial 90 Days', 90, true),
-  ('TRIAL-365D', 'Trial 365 Days', 365, true)
-on conflict (code) do update set name = excluded.name, duration_days = excluded.duration_days, is_active = true;
+insert into public.license_types (code, name, name_th, duration_days, is_active) values
+  ('TRIAL-7D', 'Trial 7 Days', 'ทดลองใช้ 7 วัน', 7, true),
+  ('TRIAL-30D', 'Trial 30 Days', 'ทดลองใช้ 30 วัน', 30, true),
+  ('TRIAL-60D', 'Trial 60 Days', 'ทดลองใช้ 60 วัน', 60, true),
+  ('TRIAL-90D', 'Trial 90 Days', 'ทดลองใช้ 90 วัน', 90, true),
+  ('TRIAL-365D', 'Trial 365 Days', 'ทดลองใช้ 365 วัน', 365, true)
+on conflict (code) do update set name = excluded.name, name_th = excluded.name_th, duration_days = excluded.duration_days, is_active = true;
 
 create or replace function public.bims_is_admin()
 returns boolean language sql stable security definer set search_path = public, auth as $$
@@ -126,6 +127,7 @@ grant execute on function public.admin_license_members() to authenticated;
 grant execute on function public.admin_license_types() to authenticated;
 grant execute on function public.admin_set_trial_license(uuid, text, uuid) to authenticated;
 grant execute on function public.admin_license_subscriptions() to authenticated;
+
 
 
 

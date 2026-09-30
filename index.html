@@ -3059,136 +3059,70 @@
     if (tab === 'members') loadAdminMembers();
     if (tab === 'subs') loadAdminSubs();
   }
+  async function adminRpc(name, args) {
+    const { data, error } = await window.supabase.rpc(name, args || {});
+    if (error) throw error;
+    return data;
+  }
+  function adminDate(value) { return value ? new Date(value).toLocaleDateString('th-TH', { year:'2-digit', month:'short', day:'numeric' }) : '-'; }
   async function loadAdminStats() {
-    if (!window.BIMS_USE_BACKEND) {
-      ['stat-members','stat-pending','stat-approved','stat-active-subs'].forEach(id => {
-        document.getElementById(id).textContent = '—';
-      });
-      return;
-    }
+    if (!window.BIMS_USE_BACKEND) return;
     try {
-      const [members, pending, approved, subs] = await Promise.all([
-        window.supabase.from('profiles').select('id', { count: 'exact', head: true }),
-        window.supabase.from('trial_requests').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-        window.supabase.from('trial_requests').select('id', { count: 'exact', head: true }).eq('status', 'approved'),
-        window.supabase.from('subscriptions').select('id', { count: 'exact', head: true }).eq('status', 'active'),
-      ]);
-      document.getElementById('stat-members').textContent = members.count ?? 0;
-      document.getElementById('stat-pending').textContent = pending.count ?? 0;
-      document.getElementById('stat-approved').textContent = approved.count ?? 0;
-      document.getElementById('stat-active-subs').textContent = subs.count ?? 0;
+      const stats = await adminRpc('admin_license_stats');
+      document.getElementById('stat-members').textContent = stats.members ?? 0;
+      document.getElementById('stat-pending').textContent = stats.pending ?? 0;
+      document.getElementById('stat-approved').textContent = stats.approved ?? 0;
+      document.getElementById('stat-active-subs').textContent = stats.active_subscriptions ?? 0;
     } catch (e) { console.error(e); }
   }
   async function loadAdminTrials() {
-    const loading = document.getElementById('trials-loading');
-    const content = document.getElementById('trials-content');
-    const tbody = document.getElementById('trials-tbody');
+    const loading = document.getElementById('trials-loading'), content = document.getElementById('trials-content'), tbody = document.getElementById('trials-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
-    if (!window.BIMS_USE_BACKEND) {
-      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
-    }
+    if (!window.BIMS_USE_BACKEND) { loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return; }
     try {
-      const { data, error } = await window.supabase
-        .from('trial_requests').select('*').order('created_at', { ascending: false });
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        loading.innerHTML = '<div class="admin-empty">ยังไม่มีคำขอทดลองใช้</div>'; return;
-      }
+      const data = await adminRpc('admin_trial_requests');
+      if (!data?.length) { loading.innerHTML = '<div class="admin-empty">ยังไม่มีคำขอทดลองใช้</div>'; return; }
       tbody.innerHTML = data.map(t => {
-        const date = new Date(t.created_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
         const status = t.status || 'pending';
-        return `<tr>
-          <td>${date}</td>
-          <td><strong>${escapeHtml(t.full_name || '-')}</strong><br><small style="color:var(--ink-3)">${escapeHtml(t.email)}</small></td>
-          <td>${escapeHtml(t.company || '-')}</td>
-          <td>${escapeHtml(t.team_size || '-')}<br><small style="color:var(--ink-3)">${escapeHtml(t.project_type || '')}</small></td>
-          <td><span class="badge-status ${status}">${status}</span></td>
-          <td class="row-actions">
-            ${status === 'pending' ? `
-              <button class="btn-mini approve" onclick="updateTrialStatus('${t.id}', 'approved')">✓</button>
-              <button class="btn-mini reject" onclick="updateTrialStatus('${t.id}', 'rejected')">✗</button>
-            ` : `<button class="btn-mini" onclick="updateTrialStatus('${t.id}', 'pending')">↺</button>`}
-          </td>
-        </tr>`;
+        return `<tr><td>${adminDate(t.created_at)}</td><td><strong>${escapeHtml(t.email || '-')}</strong></td><td>${escapeHtml(t.expectations || '-')}</td><td>${escapeHtml(t.team_size || '-')}<br><small style="color:var(--ink-3)">${escapeHtml(t.project_type || '')}</small></td><td><span class="badge-status ${status}">${status}</span></td><td class="row-actions">${status === 'pending' ? `<button class="btn-mini approve" title="Approve trial" onclick="updateTrialStatus('${t.id}', 'approved')">✓</button><button class="btn-mini reject" title="Reject" onclick="updateTrialStatus('${t.id}', 'rejected')">✗</button>` : `<button class="btn-mini" title="Set pending" onclick="updateTrialStatus('${t.id}', 'pending')">↺</button>`}</td></tr>`;
       }).join('');
       loading.style.display = 'none'; content.style.display = 'block';
-    } catch (e) {
-      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
-    }
+    } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
   }
   async function updateTrialStatus(id, status) {
-    const updates = { status, updated_at: new Date().toISOString() };
+    let days = 30;
     if (status === 'approved') {
-      updates.approved_at = new Date().toISOString();
-      updates.expires_at = new Date(Date.now() + 30 * 86400000).toISOString();
+      const answer = prompt('Trial duration (days)', '30');
+      if (answer === null) return;
+      days = Number(answer);
+      if (!Number.isInteger(days) || days < 1 || days > 365) { alert('Enter a whole number from 1 to 365.'); return; }
     }
-    const { error } = await window.supabase.from('trial_requests').update(updates).eq('id', id);
-    if (error) { alert('Error: ' + error.message); return; }
-    await loadAdminStats();
-    await loadAdminTrials();
+    try {
+      await adminRpc('admin_set_trial_license', { request_id:id, new_status:status, duration_days:days });
+      await Promise.all([loadAdminStats(), loadAdminTrials(), loadAdminSubs()]);
+    } catch (e) { alert('Unable to update trial license: ' + e.message); }
   }
   async function loadAdminMembers() {
-    const loading = document.getElementById('members-loading');
-    const content = document.getElementById('members-content');
-    const tbody = document.getElementById('members-tbody');
+    const loading = document.getElementById('members-loading'), content = document.getElementById('members-content'), tbody = document.getElementById('members-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
-    if (!window.BIMS_USE_BACKEND) {
-      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
-    }
+    if (!window.BIMS_USE_BACKEND) { loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return; }
     try {
-      const { data, error } = await window.supabase
-        .from('profiles').select('*').order('created_at', { ascending: false });
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        loading.innerHTML = '<div class="admin-empty">ยังไม่มีสมาชิก</div>'; return;
-      }
-      tbody.innerHTML = data.map(p => {
-        const date = new Date(p.created_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
-        const isAdm = isAdmin(p.email);
-        return `<tr>
-          <td>${date}</td>
-          <td><strong>${escapeHtml(p.full_name || '-')}</strong>${isAdm ? ' <span class="admin-tag">ADMIN</span>' : ''}</td>
-          <td>${escapeHtml(p.email)}</td>
-          <td>${escapeHtml(p.company || '-')}</td>
-          <td>${escapeHtml(p.role || '-')}</td>
-        </tr>`;
-      }).join('');
+      const data = await adminRpc('admin_license_members');
+      if (!data?.length) { loading.innerHTML = '<div class="admin-empty">ยังไม่มีสมาชิก</div>'; return; }
+      tbody.innerHTML = data.map(m => `<tr><td>${adminDate(m.created_at)}</td><td><strong>${escapeHtml(m.email || '-')}</strong>${isAdmin(m.email) ? ' <span class="admin-tag">ADMIN</span>' : ''}</td><td>${escapeHtml(m.email || '-')}</td><td>-</td><td>${adminDate(m.last_sign_in_at)}</td></tr>`).join('');
       loading.style.display = 'none'; content.style.display = 'block';
-    } catch (e) {
-      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
-    }
+    } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
   }
   async function loadAdminSubs() {
-    const loading = document.getElementById('subs-loading');
-    const content = document.getElementById('subs-content');
-    const tbody = document.getElementById('subs-tbody');
+    const loading = document.getElementById('subs-loading'), content = document.getElementById('subs-content'), tbody = document.getElementById('subs-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
-    if (!window.BIMS_USE_BACKEND) {
-      loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return;
-    }
+    if (!window.BIMS_USE_BACKEND) { loading.innerHTML = '<div class="admin-empty">Backend ยังไม่ได้เชื่อมต่อ</div>'; return; }
     try {
-      const { data, error } = await window.supabase
-        .from('subscriptions').select('*, profiles(email, full_name)').order('created_at', { ascending: false });
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        loading.innerHTML = '<div class="admin-empty">ยังไม่มี subscription</div>'; return;
-      }
-      tbody.innerHTML = data.map(s => {
-        const started = new Date(s.started_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' });
-        const expires = s.expires_at ? new Date(s.expires_at).toLocaleDateString('th-TH', { year: '2-digit', month: 'short', day: 'numeric' }) : '-';
-        const member = s.profiles ? (s.profiles.full_name || s.profiles.email) : '-';
-        return `<tr>
-          <td>${started}</td>
-          <td>${escapeHtml(member)}</td>
-          <td><span class="plan-tag">${s.plan}</span></td>
-          <td><span class="badge-status ${s.status}">${s.status}</span></td>
-          <td>${expires}</td>
-        </tr>`;
-      }).join('');
+      const data = await adminRpc('admin_license_subscriptions');
+      if (!data?.length) { loading.innerHTML = '<div class="admin-empty">ยังไม่มี subscription</div>'; return; }
+      tbody.innerHTML = data.map(s => `<tr><td>${adminDate(s.started_at)}</td><td>${escapeHtml(s.email || '-')}</td><td><span class="plan-tag">${escapeHtml(s.plan || '-')}</span></td><td><span class="badge-status ${s.is_active ? 'approved' : 'rejected'}">${s.is_active ? 'active' : 'inactive'}</span></td><td>${adminDate(s.expires_at)}</td></tr>`).join('');
       loading.style.display = 'none'; content.style.display = 'block';
-    } catch (e) {
-      loading.innerHTML = '<div class="admin-empty">Error: ' + e.message + '</div>';
-    }
+    } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
   }
 
   function toggleTheme() {
@@ -3231,4 +3165,5 @@
 
 </body>
 </html>
+
 

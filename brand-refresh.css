@@ -46,6 +46,54 @@ body > nav .brand img,
 .hero .badge { background: rgba(23,56,94,.78); color: #e5f1ff; border-color: rgba(135,185,244,.45); }
 .hero .btn-ghost { color: #fff; background: rgba(17,39,67,.82); border-color: rgba(211,232,255,.34); }
 .hero .stat-num { color: #6bacff; }
+
+/* Revit basics announcement */
+.promo-card {
+  border: 1px solid var(--line);
+  box-shadow: 0 28px 80px rgba(5, 16, 34, .42);
+}
+.promo-header {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 32px 34px;
+  background: #0c2343 url('./revit-seminar-banner.png') center / cover no-repeat;
+}
+.promo-header::before {
+  background: linear-gradient(90deg, rgba(5, 20, 43, .28), rgba(5, 20, 43, .65) 32%, rgba(5, 20, 43, .65) 68%, rgba(5, 20, 43, .28));
+}
+.promo-confetti {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(195, 226, 255, .48);
+  border-radius: 13px;
+  background: rgba(12, 43, 81, .8);
+  color: #9ed4ff;
+  animation: none;
+}
+.promo-confetti svg { width: 29px; height: 29px; }
+.promo-tag { background: rgba(14, 51, 91, .78); border-color: rgba(181, 219, 255, .52); }
+.promo-title { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, .5); }
+.promo-title > span { color: #fff; text-shadow: none; }
+.promo-title > span span { color: #ffc457; }
+.promo-subtitle { color: #e0eeff; font-weight: 500; opacity: 1; }
+.promo-close-btn { width: 36px; height: 36px; background: rgba(8, 30, 57, .72); border: 1px solid rgba(225, 241, 255, .35); }
+.promo-body { padding: 30px 32px; }
+.promo-free-badge { background: var(--accent-dim); border-style: solid; }
+.promo-cta { background: linear-gradient(110deg, #1f64dc, #4a91f3); }
+@media (max-width: 560px) {
+  .promo-modal { padding: 10px; }
+  .promo-card { border-radius: 22px; max-height: 96vh; }
+  .promo-header { min-height: 205px; padding: 26px 20px 30px; border-radius: 22px 22px 0 0; }
+  .promo-body { padding: 24px 20px; }
+  .promo-title { font-size: 29px; }
+  .promo-free-badge { font-size: 16px; }
+}
 @media (max-width: 700px) {
   .hero { background-position: 55% center; }
   .hero::before { background: rgba(8,21,42,.72); }

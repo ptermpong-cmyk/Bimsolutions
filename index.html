@@ -112,6 +112,15 @@
   nav .brand img { width: 44px; height: 44px; border-radius: 50%; }
   nav .brand span b { color: var(--accent); font-weight: 700; }
   nav .actions { display: flex; align-items: center; gap: 12px; }
+  nav .facebook-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; flex: 0 0 40px;
+    border-radius: 50%; background: #1877f2; color: #fff;
+    text-decoration: none; transition: background .2s ease, transform .2s ease;
+  }
+  nav .facebook-link:hover { background: #0f5fc9; transform: translateY(-2px); }
+  nav .facebook-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  nav .facebook-link svg { width: 22px; height: 22px; fill: currentColor; }
 
   /* NAV MENU */
   nav .menu { display: flex; align-items: center; gap: 4px; }
@@ -1119,6 +1128,9 @@
     </div>
 
     <div class="actions">
+      <a class="facebook-link" href="https://www.facebook.com/profile.php?id=61595030229162" target="_blank" rel="noopener noreferrer" aria-label="BiMSolutions on Facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 4H17V1.2C16.7 1.1 15.8 1 14.8 1c-2.2 0-3.7 1.3-3.7 3.8V7H8.6v3.1h2.5V23h3.1V10.1h2.5l.4-3.1h-2.9V5.1c0-.7.2-1.1 1.2-1.1Z"/></svg>
+      </a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>

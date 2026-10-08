@@ -6,12 +6,17 @@
   <title>สินค้าและบริการ | BiMSolutions</title>
   <meta name="description" content="สินค้าและบริการ BiMSolutions: Revit Extension ช่วง Early Access คอร์ส Revit ที่กำลังจะเปิด และบริการ BIM Coordination, BOQ, Shop Drawing และ IMS/VDC">
   <link rel="canonical" href="https://bimsolutions-th.com/shop.html">
+  <script src="./site-theme.js?v=1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="./supabase-config.js" defer></script>
+  <script src="./site-login.js?v=1" defer></script>
+  <link rel="stylesheet" href="./site-login.css?v=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: dark; --bg:#0a1224; --surface:#101a30; --surface-2:#17233d; --line:#263755; --ink:#f1f5f9; --muted:#bfcee0; --quiet:#92a5bf; --blue:#3b82f6; --blue-soft:#bfdbfe; }
-    :root[data-theme="light"] { color-scheme: light; --bg:#f6f9fc; --surface:#fff; --surface-2:#eef3f9; --line:#dbe5f0; --ink:#13243b; --muted:#475569; --quiet:#64748b; --blue:#2563eb; --blue-soft:#1d4ed8; }
+    :root { color-scheme: dark; --bg:#0a1224; --surface:#101a30; --surface-2:#17233d; --line:#22304e; --ink:#f1f5f9; --muted:#cbd5e1; --quiet:#7c8aa5; --blue:#3b82f6; --blue-soft:#bfdbfe; }
+    :root[data-theme="light"] { color-scheme: light; --bg:#fff; --surface:#f6f9fc; --surface-2:#eef2f9; --line:#dde5f0; --ink:#0a1224; --muted:#475569; --quiet:#7c8aa5; --blue:#2563eb; --blue-soft:#1d4ed8; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { margin:0; background:var(--bg); color:var(--ink); font:400 17px/1.6 'Athiti','Inter',system-ui,sans-serif; }
@@ -22,7 +27,7 @@
     a { color:inherit; }
     a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
     .wrap { width:min(1240px,calc(100% - 40px)); margin:auto; }
-    nav { position:sticky; top:0; z-index:10; background:var(--surface); border-bottom:1px solid var(--line); }
+    nav { position:sticky; top:0; z-index:10; background:var(--bg); border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
     nav .wrap { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
     .brand { display:flex; align-items:center; gap:10px; text-decoration:none; font-size:21px; font-weight:700; white-space:nowrap; }
     .brand img { width:42px; height:42px; border-radius:50%; object-fit:contain; }
@@ -32,7 +37,11 @@
     .lang-switch { display:flex; background:var(--surface-2); border:1px solid var(--line); border-radius:99px; padding:3px; }
     .lang-switch button { border:0; color:var(--muted); background:transparent; border-radius:99px; padding:5px 10px; cursor:pointer; font:700 12px/1 'Inter',sans-serif; }
     .lang-switch button.active { background:var(--blue); color:#fff; }
-    .theme-toggle { border:1px solid var(--line); border-radius:99px; background:var(--surface-2); color:var(--ink); width:36px; height:36px; cursor:pointer; }
+    .theme-toggle { display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; background:var(--surface); color:var(--ink); width:40px; height:40px; cursor:pointer; }
+    .theme-toggle svg { width:18px; height:18px; }
+    .theme-toggle .sun { display:none; }
+    :root[data-theme="light"] .theme-toggle .sun { display:block; }
+    :root[data-theme="light"] .theme-toggle .moon { display:none; }
     .hero { padding:72px 0 58px; background:radial-gradient(circle at 78% 12%,rgba(59,130,246,.2),transparent 36%); border-bottom:1px solid var(--line); }
     .eyebrow { color:var(--blue-soft); font:700 13px/1.5 'Inter',sans-serif; letter-spacing:.09em; text-transform:uppercase; }
     h1 { font-size:clamp(38px,5vw,64px); line-height:1.15; letter-spacing:-.02em; margin:14px 0 18px; }
@@ -89,7 +98,11 @@
           <button type="button" data-lang="th" class="active" onclick="setLang('th')">TH</button>
           <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
         </div>
-        <button class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle color theme">☼</button>
+        <button class="theme-toggle" type="button" onclick="toggleSiteTheme()" aria-label="เปลี่ยนธีมสี" title="Theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <div class="site-login-slot" data-home="./"></div>
       </div>
     </div>
   </nav>
@@ -151,11 +164,6 @@
       try { localStorage.setItem('bims-lang',lang); } catch (error) {}
       renderCatalog();
     }
-    function toggleTheme() {
-      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem('bims-theme',next); } catch (error) {}
-    }
     function escapeHtml(value) { return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
     function renderCatalog() {
       const en = isEnglish();
@@ -171,7 +179,6 @@
       </article>`).join('') : `<div class="empty">${en ? 'No matching offerings found.' : 'ไม่พบรายการที่ตรงกับคำค้นหา'}</div>`;
     }
     try {
-      if (localStorage.getItem('bims-theme') === 'light') document.documentElement.dataset.theme = 'light';
       if (localStorage.getItem('bims-lang') === 'en') document.documentElement.lang = 'en';
     } catch (error) {}
     document.querySelectorAll('.lang-switch button').forEach(button => button.classList.toggle('active',button.dataset.lang === document.documentElement.lang));

@@ -9,8 +9,10 @@
   <script src="./site-theme.js?v=1"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="./supabase-config.js" defer></script>
-  <script src="./site-login.js?v=1" defer></script>
-  <link rel="stylesheet" href="./site-login.css?v=1">
+  <script src="./site-header.js?v=1" defer></script>
+  <script src="./site-login.js?v=2" defer></script>
+  <link rel="stylesheet" href="./site-header.css?v=1">
+  <link rel="stylesheet" href="./site-login.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -84,29 +86,8 @@
   </style>
 </head>
 <body>
-  <nav aria-label="เมนูหลัก">
-    <div class="wrap">
-      <a class="brand" href="./"><img src="./logo.png" alt="" width="42" height="42">BiMSolutions</a>
-      <div class="menu">
-        <a href="./"><span data-i18n-th>หน้าแรก</span><span data-i18n-en>Home</span></a>
-        <a href="./shop.html?v=1" class="active" aria-current="page"><span data-i18n-th>สินค้าและบริการ</span><span data-i18n-en>Products &amp; Services</span></a>
-        <a href="./articles/"><span data-i18n-th>บทความ</span><span data-i18n-en>Articles</span></a>
-        <a href="./#contact"><span data-i18n-th>ติดต่อ</span><span data-i18n-en>Contact</span></a>
-      </div>
-      <div class="actions">
-        <div class="lang-switch" aria-label="Language">
-          <button type="button" data-lang="th" class="active" onclick="setLang('th')">TH</button>
-          <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
-        </div>
-        <button class="theme-toggle" type="button" onclick="toggleSiteTheme()" aria-label="เปลี่ยนธีมสี" title="Theme">
-          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <div class="site-login-slot" data-home="./"></div>
-      </div>
-    </div>
-  </nav>
-  <main>
+    <div class="bims-header-slot" data-root="./" data-active="shop"></div>
+<main>
     <header class="hero">
       <div class="wrap">
         <div class="eyebrow">BiMSolutions · BIM Learning &amp; Tools</div>

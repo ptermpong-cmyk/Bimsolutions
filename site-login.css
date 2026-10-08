@@ -1,13 +1,20 @@
 .site-login-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 184px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
-  padding: 9px 16px;
+  padding: 4px 12px 4px 5px;
   font: 600 14px/1.3 'Athiti', 'Inter', sans-serif;
   white-space: nowrap;
   cursor: pointer;
 }
+.site-login-avatar { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: #2563eb; color: #fff; font-weight: 700; }
+.site-login-avatar[hidden] { display: none; }
+.site-login-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .site-login-button:hover { border-color: var(--blue); color: var(--blue-soft); }
 .site-login-button:focus-visible, .site-login-dialog button:focus-visible, .site-login-dialog input:focus-visible, .site-login-dialog a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .site-login-overlay[hidden] { display: none; }

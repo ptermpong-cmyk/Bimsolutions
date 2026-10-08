@@ -11,7 +11,7 @@
   let user = null;
   let previousFocus = null;
 
-  slot.innerHTML = '<button type="button" class="site-login-button"></button>';
+  slot.innerHTML = '<button type="button" class="site-login-button"><span class="site-login-avatar" aria-hidden="true"></span><span class="site-login-label"></span></button>';
   const trigger = slot.querySelector('button');
   const overlay = document.createElement('div');
   overlay.className = 'site-login-overlay';
@@ -40,8 +40,12 @@
   homeLink.href = homeUrl;
 
   function updateText() {
-    trigger.textContent = user ? label('บัญชีผู้ใช้', 'My Account') : label('เข้าสู่ระบบ', 'Sign In');
-    trigger.setAttribute('aria-label', trigger.textContent);
+    const triggerLabel = user?.email || label('เข้าสู่ระบบ', 'Sign In');
+    trigger.querySelector('.site-login-label').textContent = triggerLabel;
+    const avatar = trigger.querySelector('.site-login-avatar');
+    avatar.hidden = !user;
+    avatar.textContent = user ? (user.email || '?').charAt(0).toUpperCase() : '';
+    trigger.setAttribute('aria-label', user ? label('บัญชีผู้ใช้: ', 'My account: ') + triggerLabel : triggerLabel);
     overlay.querySelector('#site-login-title').textContent = user ? label('บัญชีของฉัน', 'My Account') : label('เข้าสู่ระบบ', 'Sign In');
     overlay.querySelector('#site-login-intro').textContent = user
       ? user.email

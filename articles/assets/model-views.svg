@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" role="img" aria-labelledby="title desc">
+  <title id="title">โมเดลเดียวแสดงได้หลายมุมมอง</title>
+  <desc id="desc">ข้อมูลโมเดลอาคารเดียวกันแสดงเป็นแปลน รูปตัด และภาพสามมิติ</desc>
+  <rect width="960" height="460" rx="28" fill="#f0f7ff"/>
+  <text x="480" y="61" fill="#183153" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">ONE MODEL · MULTIPLE VIEWS</text>
+  <g fill="#fff" stroke="#d7e6f7" stroke-width="2">
+    <rect x="42" y="135" width="248" height="248" rx="22"/>
+    <rect x="356" y="110" width="248" height="280" rx="22"/>
+    <rect x="670" y="135" width="248" height="248" rx="22"/>
+  </g>
+  <g fill="#2563eb" font-family="Arial,sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+    <text x="166" y="171">PLAN</text><text x="480" y="149">MODEL</text><text x="794" y="171">SECTION</text>
+  </g>
+  <g stroke="#2563eb" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="89" y="215" width="154" height="119" rx="3"/>
+    <line x1="166" y1="215" x2="166" y2="334"/><line x1="89" y1="275" x2="243" y2="275"/>
+    <path d="M427 213 483 179 546 213 489 247Z"/><path d="M427 213v103l62 37V247M546 213v103l-57 37"/>
+    <line x1="427" y1="264" x2="489" y2="300"/><line x1="489" y1="300" x2="546" y2="266"/>
+    <line x1="725" y1="327" x2="863" y2="327"/><line x1="742" y1="213" x2="742" y2="327"/>
+    <line x1="849" y1="213" x2="849" y2="327"/><line x1="742" y1="213" x2="849" y2="213"/>
+    <line x1="742" y1="266" x2="849" y2="266"/>
+  </g>
+  <g stroke="#fb923c" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M306 252h32m-10-10 10 10-10 10"/><path d="M622 252h32m-10-10 10 10-10 10"/>
+  </g>
+  <g fill="#647d99" font-family="Arial,sans-serif" font-size="17" text-anchor="middle">
+    <text x="166" y="361">Top-down position</text><text x="480" y="380">Shared building data</text><text x="794" y="361">Heights and levels</text>
+  </g>
+</svg>

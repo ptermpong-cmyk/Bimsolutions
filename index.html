@@ -2771,10 +2771,28 @@
         : 'Configure Supabase to enable Google/Microsoft sign-in');
       return;
     }
+    try {
+      const settingsResponse = await fetch(`${window.BIMS_CONFIG.SUPABASE_URL}/auth/v1/settings`, {
+        headers: { apikey: window.BIMS_CONFIG.SUPABASE_ANON_KEY }
+      });
+      if (settingsResponse.ok) {
+        const settings = await settingsResponse.json();
+        if (settings.external?.[provider] === false) {
+          sessionStorage.removeItem('bims-oauth-mode');
+          showError(isTh
+            ? `ยังไม่ได้เปิดสมัครด้วย ${provider === 'azure' ? 'Microsoft' : 'Google'} ใน Supabase กรุณาใช้การสมัครด้วยอีเมลก่อน`
+            : `${provider === 'azure' ? 'Microsoft' : 'Google'} sign-up is not enabled in Supabase yet. Please use email sign-up for now.`);
+          return;
+        }
+      }
+    } catch (error) {
+      // Let Supabase report a connection error if settings cannot be checked.
+    }
     const { error } = await window.supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
         redirectTo: window.location.origin + window.location.pathname,
+        scopes: provider === 'azure' ? 'email' : undefined,
         queryParams: provider === 'azure' ? { prompt: 'select_account' } : {}
       }
     });

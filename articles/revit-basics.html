@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เริ่มต้นใช้งาน Revit: 5 เรื่องที่ควรรู้ | BiMSolutions</title>
+  <meta name="description" content="คู่มือ Revit สำหรับผู้เริ่มต้น: ทำความเข้าใจ Project, Level, Grid, Element และ View พร้อมลำดับฝึกสร้างโมเดลแรก">
+  <link rel="canonical" href="https://bimsolutions-th.com/articles/revit-basics.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../"><img src="../logo.png" alt="" width="42" height="42">BiMSolutions</a>
+      <nav class="site-nav" aria-label="เมนูหลัก">
+        <a href="../">หน้าแรก</a><a href="./" aria-current="page">บทความ</a><a href="../#contact">ติดต่อ</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container breadcrumb"><a href="./">บทความ</a> / เริ่มต้นใช้งาน Revit</div>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Revit สำหรับผู้เริ่มต้น</div>
+        <h1>เริ่มต้นใช้งาน Revit: 5 เรื่องที่ควรรู้ก่อนสร้างโมเดลแรก</h1>
+        <p class="lead">เข้าใจวิธีคิดของโมเดลก่อนลงมือ จะช่วยให้สร้างงานเป็นระบบและแก้ไขต่อได้ง่าย</p>
+        <div class="meta"><span>โดยทีม BiMSolutions</span><span>8 ตุลาคม 2569</span><span>อ่านประมาณ 5 นาที</span></div>
+      </div>
+    </section>
+    <div class="container content article-layout">
+      <article class="article-body">
+        <p>ถ้าเพิ่งเริ่มใช้ Revit สิ่งแรกที่ควรเปลี่ยนคือวิธีคิดจากการวาดเส้นเป็นการสร้าง <strong>องค์ประกอบอาคารที่มีข้อมูล</strong> ผนัง พื้น ประตู หรือเสาในโมเดลไม่ได้เป็นเพียงรูปทรง เมื่อแก้ไของค์ประกอบเดียว มุมมองและเอกสารที่อ้างอิงองค์ประกอบนั้นจะปรับตาม</p>
+        <div class="callout"><p>บทความนี้ใช้ตัวอย่างงานอาคารทั่วไป เหมาะสำหรับผู้ที่กำลังจะสร้างโมเดลแรกและยังไม่คุ้นกับคำศัพท์ใน Revit</p></div>
+
+        <h2 id="project">1. Project คือพื้นที่ทำงานทั้งอาคาร</h2>
+        <p>หนึ่ง Project เก็บโมเดล มุมมอง ตาราง และแผ่นแบบที่เกี่ยวข้องกัน ก่อนเริ่มงาน ควรตกลงหน่วย ระดับอ้างอิง และแนวกริดกับทีมให้ชัดเจน เพราะข้อมูลเหล่านี้จะถูกใช้ซ้ำตลอดโครงการ</p>
+        <p>ลองตั้งชื่อไฟล์และมุมมองให้สื่อความหมายตั้งแต่ต้น เช่น แยกแปลนชั้น 1 แปลนชั้น 2 และรูปตัดหลัก วิธีนี้ช่วยให้คนอื่นเปิดงานต่อได้ง่ายขึ้น</p>
+
+        <h2 id="levels-grids">2. Level และ Grid เป็นโครงอ้างอิง</h2>
+        <p><strong>Level</strong> แทนระดับความสูงสำคัญ เช่น พื้นชั้นหรือหลังคา ส่วน <strong>Grid</strong> เป็นแนวอ้างอิงตำแหน่งในแปลน โดยเฉพาะงานโครงสร้าง การกำหนดสองอย่างนี้ก่อนวางองค์ประกอบช่วยลดการย้ายเสา คาน และพื้นภายหลัง</p>
+        <p>เริ่มจากระดับและแนวกริดจำนวนเท่าที่จำเป็น ตรวจชื่อและระยะให้ถูกต้อง แล้วจึงสร้างองค์ประกอบตามแนวอ้างอิงเหล่านั้น</p>
+
+        <h2 id="elements">3. เลือก Element ให้ตรงกับสิ่งที่สร้าง</h2>
+        <p>การวางผนังควรใช้เครื่องมือผนัง การวางพื้นควรใช้เครื่องมือพื้น และการวางเสาควรใช้เครื่องมือเสา การใช้ประเภทองค์ประกอบให้ตรงช่วยให้ข้อมูลปริมาณและการแก้ไขภายหลังมีความหมาย</p>
+        <p>เมื่อเลือกองค์ประกอบ ให้ดูคุณสมบัติสำคัญ เช่น Type, ขนาด, ระดับเริ่มต้น และระดับสิ้นสุด ก่อนคัดลอกซ้ำไปทั้งอาคาร</p>
+
+        <h2 id="views">4. View คือวิธีมองข้อมูลชุดเดียวกัน</h2>
+        <p>แปลน รูปด้าน รูปตัด และมุมมองสามมิติเป็นหน้าต่างที่มองโมเดลเดียวกัน จึงควรตรวจงานจากมากกว่าหนึ่งมุมมองเสมอ ตัวอย่างเช่น เสาที่ดูอยู่ในตำแหน่งถูกต้องบนแปลนอาจมีความสูงผิดเมื่อดูในรูปตัด</p>
+        <p>การซ่อนหรือแสดงองค์ประกอบใน View มีผลต่อการนำเสนอ แต่ไม่ควรใช้แทนการแก้ตำแหน่งหรือประเภทขององค์ประกอบจริง</p>
+
+        <h2 id="practice">5. ฝึกด้วยโมเดลเล็กก่อนเริ่มงานจริง</h2>
+        <p>โมเดลทดลองขนาดเล็กทำให้เห็นความสัมพันธ์ของข้อมูลได้เร็ว ลองฝึกตามลำดับนี้:</p>
+        <ol>
+          <li>กำหนด Level สองชั้นและ Grid สองถึงสามแนว</li>
+          <li>วางเสา ผนัง และพื้นเพียงส่วนหนึ่งของอาคาร</li>
+          <li>เปิดแปลน รูปตัด และมุมมองสามมิติเพื่อตรวจตำแหน่ง</li>
+          <li>แก้ระดับหรือขนาดขององค์ประกอบหนึ่งชิ้น แล้วสังเกตผลในแต่ละ View</li>
+          <li>ตั้งชื่อมุมมองให้คนอื่นเข้าใจและบันทึกไฟล์</li>
+        </ol>
+        <p>เมื่อทำชุดเล็กนี้ได้คล่อง ค่อยเพิ่มรายละเอียดและเอกสารประกอบตามขอบเขตงานจริง</p>
+
+        <h2 id="summary">สรุปก่อนเริ่ม</h2>
+        <p>เริ่มจากโครงอ้างอิงที่ถูกต้อง เลือกประเภทองค์ประกอบให้ตรง ตรวจหลายมุมมอง และฝึกแก้ไขโมเดลเล็ก ๆ ก่อน วิธีนี้ช่วยให้เข้าใจ Revit ในฐานะเครื่องมือจัดการข้อมูลอาคาร ไม่ใช่แค่เครื่องมือวาดภาพ</p>
+        <div class="article-cta"><strong>อยากเรียนรู้ร่วมกับทีม BiMSolutions?</strong><p>ดูข้อมูลสินค้า บริการ และกิจกรรมเรียนรู้บนหน้าแรก</p><a class="read-more" href="../">ไปหน้าแรก <span aria-hidden="true">→</span></a></div>
+      </article>
+      <aside class="toc" aria-label="สารบัญบทความ">
+        <strong>ในบทความนี้</strong>
+        <a href="#project">Project</a>
+        <a href="#levels-grids">Level และ Grid</a>
+        <a href="#elements">Element</a>
+        <a href="#views">View</a>
+        <a href="#practice">แบบฝึกแรก</a>
+        <a href="#summary">สรุป</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 BiMSolutions</span><a href="./">บทความทั้งหมด</a></div></footer>
+</body>
+</html>

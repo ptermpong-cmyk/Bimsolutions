@@ -704,6 +704,19 @@
     box-shadow: 0 10px 28px var(--shadow-strong);
   }
   .promo-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(59, 130, 246, .5); }
+  .seminar-form { display: none; margin-top: 20px; }
+  .seminar-form.open { display: block; }
+  #seminar-open-form[hidden] { display: none; }
+  .seminar-form label { display: block; margin: 12px 0 5px; color: var(--ink); font-size: 13px; font-weight: 600; }
+  .seminar-form input, .seminar-form select {
+    width: 100%; box-sizing: border-box; padding: 11px 12px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: var(--bg); color: var(--ink); font: inherit;
+  }
+  .seminar-form .promo-cta { margin-top: 18px; }
+  .seminar-form .promo-cta:disabled { opacity: .6; cursor: wait; }
+  .seminar-form-message { min-height: 20px; margin: 10px 0 0; font-size: 13px; color: var(--ink-2); }
+  .seminar-form-message.error { color: #c62828; }
   .promo-later {
     display: block; width: 100%; text-align: center;
     background: none; border: none; color: var(--ink-3);
@@ -1070,7 +1083,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 </div>
                 <div class="mega-link-text">
-                  <strong><span data-i18n-th>สัมมนาฟรี</span><span data-i18n-en>Free Seminar</span><span class="mega-badge">Oct 2568</span></strong>
+                  <strong><span data-i18n-th>เรียนรู้ Revit เบื้องต้น</span><span data-i18n-en>Revit Basics</span><span class="mega-badge">28 Oct 2569</span></strong>
                   <small><span data-i18n-th>เริ่มต้นใช้งาน Revit ทุก Discipline</span><span data-i18n-en>Getting started with Revit across disciplines</span></small>
                 </div>
               </a>
@@ -1946,8 +1959,8 @@
           <span data-i18n-en>FREE</span>
         </span>
         <span>
-          <span data-i18n-th>สัมมนาออนไลน์</span>
-          <span data-i18n-en>Online Seminar</span>
+          <span data-i18n-th>เรียนรู้ Revit เบื้องต้นออนไลน์</span>
+          <span data-i18n-en>Online Revit Basics Session</span>
         </span>
       </div>
 
@@ -2011,12 +2024,12 @@
           <div class="icon">📅</div>
           <div>
             <strong>
-              <span data-i18n-th>ตุลาคม 2568</span>
-              <span data-i18n-en>October 2025</span>
+              <span data-i18n-th>28 ตุลาคม 2569</span>
+              <span data-i18n-en>28 October 2026</span>
             </strong>
             <small>
-              <span data-i18n-th>วันและเวลาที่แน่นอนจะแจ้งทางอีเมล</span>
-              <span data-i18n-en>Exact date/time will be emailed to registrants</span>
+              <span data-i18n-th>เวลาจัดงานและลิงก์เข้าร่วมจะแจ้งทางอีเมล</span>
+              <span data-i18n-en>Time and joining link will be emailed to registrants</span>
             </small>
           </div>
         </div>
@@ -2048,10 +2061,30 @@
         </div>
       </div>
 
-      <button class="promo-cta" onclick="registerSeminar()">
+      <button id="seminar-open-form" class="promo-cta" onclick="registerSeminar()">
         <span data-i18n-th>จองที่นั่งฟรี →</span>
         <span data-i18n-en>Reserve My Free Spot →</span>
       </button>
+      <form id="seminar-form" class="seminar-form" onsubmit="submitSeminarRegistration(event)">
+        <label for="seminar-name"><span data-i18n-th>ชื่อ-นามสกุล</span><span data-i18n-en>Full name</span></label>
+        <input id="seminar-name" name="full_name" type="text" autocomplete="name" minlength="2" maxlength="120" required>
+        <label for="seminar-email"><span data-i18n-th>อีเมล</span><span data-i18n-en>Email</span></label>
+        <input id="seminar-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        <label for="seminar-phone"><span data-i18n-th>เบอร์โทร</span><span data-i18n-en>Phone</span></label>
+        <input id="seminar-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required>
+        <label for="seminar-discipline"><span data-i18n-th>สายงาน</span><span data-i18n-en>Discipline</span></label>
+        <select id="seminar-discipline" name="discipline" required>
+          <option value="">เลือกสายงาน / Select discipline</option>
+          <option value="architecture">Architecture</option>
+          <option value="structure">Structure</option>
+          <option value="mechanical">Mechanical</option>
+          <option value="electrical">Electrical</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="other">อื่น ๆ / Other</option>
+        </select>
+        <button class="promo-cta" type="submit"><span data-i18n-th>ยืนยันการลงทะเบียน</span><span data-i18n-en>Confirm registration</span></button>
+        <p id="seminar-form-message" class="seminar-form-message" role="status" aria-live="polite"></p>
+      </form>
       <button class="promo-later" onclick="dismissPromo()">
         <span data-i18n-th>ไว้ทีหลัง</span>
         <span data-i18n-en>Maybe later</span>
@@ -2477,7 +2510,7 @@
 
 <script>
   // ==================== PROMO POPUP ====================
-  const PROMO_KEY = 'bims-promo-october-seminar';
+  const PROMO_KEY = 'bims-promo-seminar-2026-10-28';
   const PROMO_DISMISS_HOURS = 24; // don't re-show for 24 hours after dismiss
 
   function shouldShowPromo() {
@@ -2499,24 +2532,52 @@
   function dismissPromo() {
     document.getElementById('promo-modal').classList.remove('open');
     try {
+      const wasRegistered = JSON.parse(localStorage.getItem(PROMO_KEY) || '{}').registered === true;
       localStorage.setItem(PROMO_KEY, JSON.stringify({
-        dismissedAt: Date.now(), registered: false
+        dismissedAt: Date.now(), registered: wasRegistered
       }));
     } catch(e) {}
   }
   function registerSeminar() {
-    document.getElementById('promo-modal').classList.remove('open');
+    document.getElementById('seminar-open-form').hidden = true;
+    document.getElementById('seminar-form').classList.add('open');
+    document.getElementById('seminar-name').focus();
+  }
+  async function submitSeminarRegistration(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector('button[type="submit"]');
+    const message = document.getElementById('seminar-form-message');
+    const isTh = document.documentElement.lang !== 'en';
+    message.classList.remove('error');
+    if (!window.supabase) {
+      message.textContent = isTh ? 'ระบบลงทะเบียนยังไม่พร้อม กรุณาลองใหม่ภายหลัง' : 'Registration is unavailable. Please try again later.';
+      message.classList.add('error');
+      return;
+    }
+    const values = new FormData(form);
+    button.disabled = true;
     try {
-      localStorage.setItem(PROMO_KEY, JSON.stringify({
-        dismissedAt: Date.now(), registered: true
-      }));
-    } catch(e) {}
-    // Route through signup — user account required to register
-    const user = document.querySelector('#nav-user');
-    if (user && user.style.display !== 'none') {
-      window.location.href = 'mailto:p.termpong@gmail.com?subject=ลงทะเบียนสัมมนาฟรี - Revit October 2025&body=ผมสนใจเข้าร่วมสัมมนา Revit ฟรี เดือนตุลาคม 2568';
-    } else {
-      openAuth('signup');
+      const { error } = await window.supabase.from('seminar_registrations').insert({
+        event_code: 'revit-basics-2026-10-28',
+        full_name: String(values.get('full_name')).trim(),
+        email: String(values.get('email')).trim().toLowerCase(),
+        phone: String(values.get('phone')).trim(),
+        discipline: String(values.get('discipline'))
+      });
+      if (error) throw error;
+      try {
+        localStorage.setItem(PROMO_KEY, JSON.stringify({ dismissedAt: Date.now(), registered: true }));
+      } catch (storageError) {}
+      form.reset();
+      message.textContent = isTh ? 'ลงทะเบียนเรียบร้อยแล้ว เราจะแจ้งเวลาและลิงก์เข้าร่วมทางอีเมล' : 'Registration complete. We will email the time and joining link.';
+    } catch (error) {
+      message.classList.add('error');
+      message.textContent = error.code === '23505'
+        ? (isTh ? 'อีเมลนี้ลงทะเบียนงานนี้แล้ว' : 'This email is already registered for this event.')
+        : (isTh ? 'ลงทะเบียนไม่สำเร็จ กรุณาลองใหม่อีกครั้ง' : 'Registration failed. Please try again.');
+    } finally {
+      button.disabled = false;
     }
   }
   // Auto-show on first visit after 3 seconds

@@ -5,7 +5,7 @@
   const active = slot.dataset.active || '';
   const copy = (th, en) => `<span data-site-th>${th}</span><span data-site-en>${en}</span>`;
   slot.innerHTML = `<header class="bims-header"><div class="bims-header-inner">
-    <a class="bims-header-logo" href="${root}" aria-label="BiMSolutions หน้าแรก"><img src="${root}logo.png" width="44" height="44" alt="BiMSolutions"></a>
+    <a class="bims-header-logo" href="${root}" aria-label="BiMSolutions หน้าแรก"><img src="${root}BiM_Solutions_profile.png" width="44" height="44" alt="BiMSolutions"></a>
     <nav class="bims-header-nav" aria-label="เมนูหลัก">
       <details class="bims-header-products"><summary class="${active === 'shop' ? 'current' : ''}">${copy('สินค้าและบริการ', 'Products & Services')} <span aria-hidden="true">⌄</span></summary><div class="bims-header-dropdown"><a href="${root}shop.html">${copy('ดูสินค้าและบริการทั้งหมด', 'All products & services')}</a><a href="${root}#products">Revit Extension</a><a href="${root}#services">${copy('บริการ BIM', 'BIM services')}</a></div></details>
       <a href="${root}#features">${copy('ฟีเจอร์', 'Features')}</a><a class="${active === 'articles' ? 'current' : ''}" href="${root}articles/">${copy('บทความ', 'Articles')}</a><a href="${root}#contact">${copy('ติดต่อ', 'Contact')}</a>

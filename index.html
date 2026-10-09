@@ -2297,6 +2297,13 @@
         <p class="admin-registration-intro"><span data-i18n-th>ผู้ลงทะเบียนกิจกรรมเรียนรู้ Revit เบื้องต้น · 28 ตุลาคม 2569</span><span data-i18n-en>Revit Basics event registrations · 28 October 2026</span></p>
         <div id="registrations-loading" class="admin-loading">Loading...</div>
         <div id="registrations-content" style="display:none;">
+          <div class="admin-registration-tools">
+            <input id="registrations-search" type="search" placeholder="ค้นหาชื่อ อีเมล หรือเบอร์โทร" oninput="renderAdminRegistrations()" aria-label="ค้นหาผู้ลงทะเบียน">
+            <select id="registrations-status-filter" onchange="renderAdminRegistrations()" aria-label="กรองสถานะผู้ลงทะเบียน">
+              <option value="">ทุกสถานะ</option><option value="registered">ลงทะเบียนแล้ว</option><option value="confirmed">ยืนยันแล้ว</option><option value="attended">เข้าร่วมแล้ว</option><option value="cancelled">ยกเลิก</option>
+            </select>
+            <button type="button" class="admin-export-btn" onclick="exportAdminRegistrations()">↓ CSV</button>
+          </div>
           <div class="table-wrap">
             <table class="data-table">
               <thead><tr>
@@ -2305,6 +2312,8 @@
                 <th>Email</th>
                 <th><span data-i18n-th>เบอร์โทร</span><span data-i18n-en>Phone</span></th>
                 <th><span data-i18n-th>สายงาน</span><span data-i18n-en>Discipline</span></th>
+                <th><span data-i18n-th>สถานะ</span><span data-i18n-en>Status</span></th>
+                <th><span data-i18n-th>จัดการ</span><span data-i18n-en>Manage</span></th>
               </tr></thead>
               <tbody id="registrations-tbody"></tbody>
             </table>
@@ -3039,27 +3048,56 @@
       loading.style.display = 'none'; content.style.display = 'block';
     } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
   }
+  let adminRegistrations = [];
+  const registrationStatusLabels = {
+    registered:['ลงทะเบียนแล้ว','Registered'], confirmed:['ยืนยันแล้ว','Confirmed'],
+    attended:['เข้าร่วมแล้ว','Attended'], cancelled:['ยกเลิก','Cancelled']
+  };
   async function loadAdminRegistrations() {
     const loading = document.getElementById('registrations-loading'), content = document.getElementById('registrations-content'), tbody = document.getElementById('registrations-tbody');
     loading.style.display = 'block'; content.style.display = 'none';
     if (!window.BIMS_USE_BACKEND) { loading.textContent = 'Backend ยังไม่ได้เชื่อมต่อ'; return; }
     try {
-      const rows = await adminRpc('admin_seminar_registrations');
-      if (!rows?.length) { loading.textContent = document.documentElement.lang === 'en' ? 'No registrations yet.' : 'ยังไม่มีผู้ลงทะเบียน'; return; }
-      const disciplines = {
-        architecture:['สถาปัตยกรรม','Architecture'], structure:['โครงสร้าง','Structure'],
-        mechanical:['เครื่องกล','Mechanical'], electrical:['ไฟฟ้า','Electrical'],
-        plumbing:['สุขาภิบาล','Plumbing'], other:['อื่น ๆ','Other']
-      };
-      const en = document.documentElement.lang === 'en';
-      tbody.innerHTML = rows.map(row => `<tr><td>${adminDate(row.created_at)}</td><td><strong>${escapeHtml(row.full_name)}</strong></td><td>${escapeHtml(row.email)}</td><td>${escapeHtml(row.phone)}</td><td>${escapeHtml(disciplines[row.discipline]?.[en ? 1 : 0] || row.discipline || '-')}</td></tr>`).join('');
+      adminRegistrations = await adminRpc('admin_seminar_registrations_v2');
+      if (!adminRegistrations?.length) { loading.textContent = document.documentElement.lang === 'en' ? 'No registrations yet.' : 'ยังไม่มีผู้ลงทะเบียน'; return; }
       loading.style.display = 'none'; content.style.display = 'block';
+      renderAdminRegistrations();
     } catch (error) {
       loading.textContent = document.documentElement.lang === 'en'
         ? 'Registrations are unavailable. Please check the admin database setup.'
         : 'ยังโหลดผู้ลงทะเบียนไม่ได้ กรุณาตรวจการตั้งค่าฐานข้อมูลสำหรับผู้ดูแล';
       console.error('Admin registrations:', error.code, error.message, error.details);
     }
+  }
+  function renderAdminRegistrations() {
+    const tbody = document.getElementById('registrations-tbody');
+    const query = (document.getElementById('registrations-search')?.value || '').trim().toLowerCase();
+    const filter = document.getElementById('registrations-status-filter')?.value || '';
+    const disciplines = { architecture:['สถาปัตยกรรม','Architecture'], structure:['โครงสร้าง','Structure'], mechanical:['เครื่องกล','Mechanical'], electrical:['ไฟฟ้า','Electrical'], plumbing:['สุขาภิบาล','Plumbing'], other:['อื่น ๆ','Other'] };
+    const en = document.documentElement.lang === 'en';
+    const rows = adminRegistrations.filter(row => {
+      const matches = !query || [row.full_name,row.email,row.phone,row.discipline].some(v => String(v || '').toLowerCase().includes(query));
+      return matches && (!filter || (row.attendance_status || 'registered') === filter);
+    });
+    if (!rows.length) { tbody.innerHTML = `<tr><td colspan="7" class="admin-empty">${en ? 'No matching registrations.' : 'ไม่พบผู้ลงทะเบียนที่ตรงกับการค้นหา'}</td></tr>`; return; }
+    tbody.innerHTML = rows.map(row => {
+      const status = row.attendance_status || 'registered';
+      const options = Object.entries(registrationStatusLabels).map(([value,label]) => `<option value="${value}" ${value === status ? 'selected' : ''}>${label[en ? 1 : 0]}</option>`).join('');
+      return `<tr><td>${adminDate(row.created_at)}</td><td><strong>${escapeHtml(row.full_name)}</strong></td><td>${escapeHtml(row.email)}</td><td>${escapeHtml(row.phone)}</td><td>${escapeHtml(disciplines[row.discipline]?.[en ? 1 : 0] || row.discipline || '-')}</td><td><span class="badge-status ${status === 'cancelled' ? 'rejected' : status === 'registered' ? 'pending' : 'approved'}">${registrationStatusLabels[status]?.[en ? 1 : 0] || status}</span></td><td><select class="registration-status-select" onchange="updateAdminRegistrationStatus('${row.id}', this.value)">${options}</select></td></tr>`;
+    }).join('');
+  }
+  async function updateAdminRegistrationStatus(id, status) {
+    try {
+      await adminRpc('admin_set_seminar_registration_status', { registration_id: id, new_status: status });
+      const item = adminRegistrations.find(row => row.id === id); if (item) item.attendance_status = status;
+      renderAdminRegistrations();
+    } catch (error) { alert(document.documentElement.lang === 'en' ? 'Could not update the registration status.' : 'ไม่สามารถอัปเดตสถานะผู้ลงทะเบียนได้'); console.error(error); }
+  }
+  function exportAdminRegistrations() {
+    const rows = adminRegistrations.map(row => [adminDate(row.created_at), row.full_name, row.email, row.phone, row.discipline, registrationStatusLabels[row.attendance_status || 'registered']?.[0] || row.attendance_status]);
+    const csv = [['วันที่ลงทะเบียน','ชื่อ','อีเมล','เบอร์โทร','สายงาน','สถานะ'], ...rows].map(row => row.map(value => `"${String(value ?? '').replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8'}), url = URL.createObjectURL(blob), link = document.createElement('a');
+    link.href = url; link.download = 'bimsolutions-revit-basics-registrations.csv'; link.click(); URL.revokeObjectURL(url);
   }
   async function loadAdminSubs() {
     const loading = document.getElementById('subs-loading'), content = document.getElementById('subs-content'), tbody = document.getElementById('subs-tbody');

@@ -46,10 +46,9 @@ body > nav .brand img,
 .hero .badge { background: rgba(23,56,94,.78); color: #e5f1ff; border-color: rgba(135,185,244,.45); }
 .hero .btn-ghost { color: #fff; background: rgba(17,39,67,.82); border-color: rgba(211,232,255,.34); }
 .hero .stat-num { color: #6bacff; }
-.hero { padding: 96px 0 84px; }
-.offerings-section { padding: 68px 0 78px; background: var(--bg-2); border-bottom: 1px solid var(--line); }
+.hero { padding: 96px 0 190px; }
+.offerings-section { position: relative; z-index: 3; margin-top: -92px; padding: 0 0 78px; background: linear-gradient(to bottom, transparent 0 92px, var(--bg-2) 92px); border-bottom: 1px solid var(--line); }
 .hero-offerings { max-width: 1180px; margin: 0 auto; text-align: left; }
-.hero-offerings-heading { margin: 0 0 18px; color: var(--ink); font-size: 22px; font-weight: 700; }
 .hero-offerings-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .hero-offering {
   display: flex; flex-direction: column; min-height: 184px; padding: 18px;
@@ -65,7 +64,8 @@ body > nav .brand img,
 .hero-offering-link { margin-top: auto; padding-top: 15px; color: var(--accent); font-size: 13px; font-weight: 700; }
 .card[id^="product-"] { scroll-margin-top: 115px; }
 @media (max-width: 1050px) { .hero-offerings-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 680px) { .offerings-section { padding: 48px 0; } .hero-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1050px) { .hero { padding-bottom: 84px; } .offerings-section { margin-top: 0; padding: 48px 0; background: var(--bg-2); } }
+@media (max-width: 680px) { .hero-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 440px) { .hero-offerings-grid { grid-template-columns: 1fr; } .hero-offering { min-height: 145px; } }
 
 /* Revit basics announcement */

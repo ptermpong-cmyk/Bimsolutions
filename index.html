@@ -1042,7 +1042,7 @@
   .license-foot small { display:block; color:#7888a5; margin-top:2px; }
   .license-logout { border:0; border-radius:12px; padding:14px 26px; background:linear-gradient(135deg,#2677f4,#074bd8); color:#fff; font:700 16px 'Space Grotesk',sans-serif; cursor:pointer; box-shadow:0 9px 18px rgba(20,91,220,.24); }
   @media (max-width:650px) { .license-card{padding:22px 16px}.license-title-row h2{font-size:31px}.license-live{min-width:auto;padding:10px}.license-title-row{align-items:flex-start}.license-grid{padding:7px}.license-row{grid-template-columns:38px 1fr 34px;gap:8px}.license-label{display:none}.license-value{font-size:13px}.license-foot{align-items:flex-start;gap:14px}.license-logout{padding:12px 15px;font-size:14px} }</style>
-<link rel="stylesheet" href="./brand-refresh.css?v=2" />
+<link rel="stylesheet" href="./brand-refresh.css?v=3" />
 </head>
 <body>
 
@@ -1259,38 +1259,24 @@
       </a>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">10×</div>
-        <div class="stat-lbl">
-          <span data-i18n-th>เร็วขึ้นกว่าเดิม</span>
-          <span data-i18n-en>Faster Workflow</span>
-        </div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">14+</div>
-        <div class="stat-lbl">
-          <span data-i18n-th>เครื่องมืออัตโนมัติ</span>
-          <span data-i18n-en>Automation Tools</span>
-        </div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3</div>
-        <div class="stat-lbl">
-          <span data-i18n-th>มาตรฐานรองรับ</span>
-          <span data-i18n-en>Design Standards</span>
-        </div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">9+</div>
-        <div class="stat-lbl">
-          <span data-i18n-th>ปีประสบการณ์ BIM</span>
-          <span data-i18n-en>Years of BIM Experience</span>
-        </div>
+  </div>
+</header>
+
+<!-- PRODUCTS & LEARNING PATHS -->
+<section class="offerings-section" id="courses" aria-label="สินค้าและเส้นทางการเรียนรู้">
+  <div class="wrap">
+    <div class="hero-offerings" aria-label="สินค้าและเส้นทางการเรียนรู้">
+      <p class="hero-offerings-heading"><span data-i18n-th>เลือกสิ่งที่อยากเริ่มต้น</span><span data-i18n-en>Choose where to start</span></p>
+      <div class="hero-offerings-grid">
+        <a class="hero-offering" href="./shop.html#product-extension"><span class="hero-offering-no">01 · TOOL</span><strong>Revit Extension</strong><small><span data-i18n-th>เครื่องมือช่วยงาน Revit</span><span data-i18n-en>Tools for Revit workflows</span></small><span class="hero-offering-link">Early Access →</span></a>
+        <a class="hero-offering" href="#seminar" onclick="openPromo();return false;"><span class="hero-offering-no">02 · LEARN</span><strong><span data-i18n-th>เรียนรู้งาน Revit เบื้องต้น</span><span data-i18n-en>Revit Basics</span></strong><small><span data-i18n-th>เรียนออนไลน์ฟรี 28 ต.ค. 2569</span><span data-i18n-en>Free online session · 28 Oct 2026</span></small><span class="hero-offering-link"><span data-i18n-th>ลงทะเบียนฟรี →</span><span data-i18n-en>Register free →</span></span></a>
+        <a class="hero-offering" href="./shop.html#product-architecture-structure"><span class="hero-offering-no">03 · COURSE</span><strong>Revit Architecture &amp; Structure</strong><small><span data-i18n-th>สถาปัตยกรรมและโครงสร้าง</span><span data-i18n-en>Architecture and structure</span></small><span class="hero-offering-link"><span data-i18n-th>เร็ว ๆ นี้ →</span><span data-i18n-en>Coming soon →</span></span></a>
+        <a class="hero-offering" href="./shop.html#product-electrical"><span class="hero-offering-no">04 · COURSE</span><strong>Revit Electrical System</strong><small><span data-i18n-th>ระบบไฟฟ้าอาคาร</span><span data-i18n-en>Building electrical systems</span></small><span class="hero-offering-link"><span data-i18n-th>เร็ว ๆ นี้ →</span><span data-i18n-en>Coming soon →</span></span></a>
+        <a class="hero-offering" href="./shop.html#product-mechanical"><span class="hero-offering-no">05 · COURSE</span><strong>Revit Mechanical System</strong><small><span data-i18n-th>เครื่องกลและระบบปรับอากาศ</span><span data-i18n-en>Mechanical and HVAC systems</span></small><span class="hero-offering-link"><span data-i18n-th>เร็ว ๆ นี้ →</span><span data-i18n-en>Coming soon →</span></span></a>
       </div>
     </div>
   </div>
-</header>
+</section>
 
 <!-- VALUES -->
 <section>
@@ -1697,202 +1683,6 @@
         </p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- COURSES -->
-<section class="course-section">
-  <div class="wrap">
-    <div class="section-head center">
-      <span class="kicker">Coming Soon · Reserve Your Spot</span>
-      <h2>
-        <span data-i18n-th>คอร์สเรียน Revit<br />เตรียมพบกันไวๆ นี้</span>
-        <span data-i18n-en>Revit Courses<br />Launching Soon</span>
-      </h2>
-      <p class="section-sub">
-        <span data-i18n-th>3 คอร์สครอบคลุมทุก Discipline · ลงชื่อรับแจ้งเตือนเปิดจอง และรับราคาพิเศษก่อนใคร</span>
-        <span data-i18n-en>3 courses covering every discipline · Sign up for launch alerts and secure early-bird pricing.</span>
-      </p>
-    </div>
-    <div class="courses-grid">
-
-      <!-- COURSE 1: ARCHITECTURE & STRUCTURE -->
-      <div class="course-card">
-        <div class="course-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/>
-          </svg>
-        </div>
-        <span class="course-badge">
-          <span data-i18n-th>ยอดนิยม</span>
-          <span data-i18n-en>Most Popular</span>
-        </span>
-        <h3 class="course-title">
-          <span data-i18n-th>Revit <span>Architecture &amp; Structure</span></span>
-          <span data-i18n-en>Revit <span>Architecture &amp; Structure</span></span>
-        </h3>
-        <p class="course-desc">
-          <span data-i18n-th>ปูพื้นฐาน Revit สำหรับงานสถาปัตย์และโครงสร้าง ตั้งแต่เริ่มจนใช้งานได้จริง</span>
-          <span data-i18n-en>Foundation course covering architectural and structural Revit — from zero to production-ready.</span>
-        </p>
-        <ul class="course-perks">
-          <li>
-            <span data-i18n-th>Wall, Door, Window, Floor, Roof</span>
-            <span data-i18n-en>Wall, Door, Window, Floor, Roof</span>
-          </li>
-          <li>
-            <span data-i18n-th>Column, Beam, Slab, Foundation</span>
-            <span data-i18n-en>Column, Beam, Slab, Foundation</span>
-          </li>
-          <li>
-            <span data-i18n-th>Shop Drawing, Schedule, BOQ</span>
-            <span data-i18n-en>Shop Drawing, Schedule, BOQ</span>
-          </li>
-          <li>
-            <span data-i18n-th>เข้าถึงตลอดชีพ · ไฟล์ Template ให้ดาวน์โหลด</span>
-            <span data-i18n-en>Lifetime access · Downloadable templates</span>
-          </li>
-        </ul>
-        <div class="course-coming-soon">
-          <div class="cs-label">
-            <span data-i18n-th>เร็วๆ นี้</span>
-            <span data-i18n-en>Coming Soon</span>
-          </div>
-          <div class="cs-text">
-            <span data-i18n-th>เตรียมพบกันไวๆ นี้</span>
-            <span data-i18n-en>Launching Soon</span>
-          </div>
-          <div class="cs-sub">
-            <span data-i18n-th>ลงชื่อรับแจ้งเตือน · ราคาพิเศษสำหรับผู้จองล่วงหน้า</span>
-            <span data-i18n-en>Get notified · Special pricing for early sign-ups</span>
-          </div>
-        </div>
-        <a href="mailto:p.termpong@gmail.com?subject=แจ้งเตือน - Revit Architecture and Structure" class="course-cta">
-          <span data-i18n-th>ลงชื่อรับแจ้งเตือน →</span>
-          <span data-i18n-en>Notify Me →</span>
-        </a>
-      </div>
-
-      <!-- COURSE 2: ELECTRICAL -->
-      <div class="course-card">
-        <div class="course-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-        </div>
-        <span class="course-badge">
-          <span data-i18n-th>ใหม่</span>
-          <span data-i18n-en>New</span>
-        </span>
-        <h3 class="course-title">
-          <span data-i18n-th>Revit <span>Electrical System</span></span>
-          <span data-i18n-en>Revit <span>Electrical System</span></span>
-        </h3>
-        <p class="course-desc">
-          <span data-i18n-th>เขียนแบบระบบไฟฟ้าใน Revit สำหรับงานอาคารและโรงงาน ตั้งแต่ Layout จนถึงแบบส่งผู้รับเหมา</span>
-          <span data-i18n-en>Model electrical systems in Revit for buildings and factories — from layout to construction-ready drawings.</span>
-        </p>
-        <ul class="course-perks">
-          <li>
-            <span data-i18n-th>Panel Schedule, Circuit, Load Analysis</span>
-            <span data-i18n-en>Panel Schedule, Circuit, Load Analysis</span>
-          </li>
-          <li>
-            <span data-i18n-th>Lighting, Power Layout, Cable Tray</span>
-            <span data-i18n-en>Lighting, Power Layout, Cable Tray</span>
-          </li>
-          <li>
-            <span data-i18n-th>Single Line Diagram, Riser Diagram</span>
-            <span data-i18n-en>Single Line Diagram, Riser Diagram</span>
-          </li>
-          <li>
-            <span data-i18n-th>ครอบคลุมมาตรฐาน วสท. และ NEC</span>
-            <span data-i18n-en>Aligned with EIT and NEC standards</span>
-          </li>
-        </ul>
-        <div class="course-coming-soon">
-          <div class="cs-label">
-            <span data-i18n-th>เร็วๆ นี้</span>
-            <span data-i18n-en>Coming Soon</span>
-          </div>
-          <div class="cs-text">
-            <span data-i18n-th>เตรียมพบกันไวๆ นี้</span>
-            <span data-i18n-en>Launching Soon</span>
-          </div>
-          <div class="cs-sub">
-            <span data-i18n-th>ลงชื่อรับแจ้งเตือน · ราคาพิเศษสำหรับผู้จองล่วงหน้า</span>
-            <span data-i18n-en>Get notified · Special pricing for early sign-ups</span>
-          </div>
-        </div>
-        <a href="mailto:p.termpong@gmail.com?subject=แจ้งเตือน - Revit Electrical System" class="course-cta">
-          <span data-i18n-th>ลงชื่อรับแจ้งเตือน →</span>
-          <span data-i18n-en>Notify Me →</span>
-        </a>
-      </div>
-
-      <!-- COURSE 3: MECHANICAL -->
-      <div class="course-card">
-        <div class="course-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-        </div>
-        <span class="course-badge">
-          <span data-i18n-th>ใหม่</span>
-          <span data-i18n-en>New</span>
-        </span>
-        <h3 class="course-title">
-          <span data-i18n-th>Revit <span>Mechanical System</span></span>
-          <span data-i18n-en>Revit <span>Mechanical System</span></span>
-        </h3>
-        <p class="course-desc">
-          <span data-i18n-th>เขียนแบบงานเครื่องกลใน Revit — ปรับอากาศ ระบายอากาศ สุขาภิบาล และดับเพลิง</span>
-          <span data-i18n-en>Model mechanical systems in Revit — HVAC, ventilation, plumbing, and fire protection.</span>
-        </p>
-        <ul class="course-perks">
-          <li>
-            <span data-i18n-th>HVAC · Duct Sizing · Diffuser Layout</span>
-            <span data-i18n-en>HVAC · Duct Sizing · Diffuser Layout</span>
-          </li>
-          <li>
-            <span data-i18n-th>Plumbing · Sanitary · Water Supply</span>
-            <span data-i18n-en>Plumbing · Sanitary · Water Supply</span>
-          </li>
-          <li>
-            <span data-i18n-th>Fire Protection · Sprinkler Layout</span>
-            <span data-i18n-en>Fire Protection · Sprinkler Layout</span>
-          </li>
-          <li>
-            <span data-i18n-th>Clash Detection กับงานโครงสร้างและสถาปัตย์</span>
-            <span data-i18n-en>Clash detection with structure &amp; architecture</span>
-          </li>
-        </ul>
-        <div class="course-coming-soon">
-          <div class="cs-label">
-            <span data-i18n-th>เร็วๆ นี้</span>
-            <span data-i18n-en>Coming Soon</span>
-          </div>
-          <div class="cs-text">
-            <span data-i18n-th>เตรียมพบกันไวๆ นี้</span>
-            <span data-i18n-en>Launching Soon</span>
-          </div>
-          <div class="cs-sub">
-            <span data-i18n-th>ลงชื่อรับแจ้งเตือน · ราคาพิเศษสำหรับผู้จองล่วงหน้า</span>
-            <span data-i18n-en>Get notified · Special pricing for early sign-ups</span>
-          </div>
-        </div>
-        <a href="mailto:p.termpong@gmail.com?subject=แจ้งเตือน - Revit Mechanical System" class="course-cta">
-          <span data-i18n-th>ลงชื่อรับแจ้งเตือน →</span>
-          <span data-i18n-en>Notify Me →</span>
-        </a>
-      </div>
-
-    </div>
-    <p style="text-align:center; margin-top: 32px; color: var(--ink-3); font-size: 13px;">
-      <span data-i18n-th>ลงชื่อรับแจ้งเตือนวันเปิดตัว · รับส่วนลดพิเศษสำหรับผู้จองล่วงหน้า</span>
-      <span data-i18n-en>Sign up for launch notifications · Special pricing for early sign-ups</span>
-    </p>
   </div>
 </section>
 
@@ -2598,7 +2388,9 @@
   }
   // Auto-show on first visit after 3 seconds
   window.addEventListener('load', () => {
-    if (shouldShowPromo()) {
+    if (location.hash === '#seminar') {
+      openPromo();
+    } else if (shouldShowPromo()) {
       setTimeout(openPromo, 3000);
     }
   });

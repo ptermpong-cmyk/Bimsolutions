@@ -46,6 +46,27 @@ body > nav .brand img,
 .hero .badge { background: rgba(23,56,94,.78); color: #e5f1ff; border-color: rgba(135,185,244,.45); }
 .hero .btn-ghost { color: #fff; background: rgba(17,39,67,.82); border-color: rgba(211,232,255,.34); }
 .hero .stat-num { color: #6bacff; }
+.hero { padding: 96px 0 84px; }
+.offerings-section { padding: 68px 0 78px; background: var(--bg-2); border-bottom: 1px solid var(--line); }
+.hero-offerings { max-width: 1180px; margin: 0 auto; text-align: left; }
+.hero-offerings-heading { margin: 0 0 18px; color: var(--ink); font-size: 22px; font-weight: 700; }
+.hero-offerings-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.hero-offering {
+  display: flex; flex-direction: column; min-height: 184px; padding: 18px;
+  border: 1px solid var(--line); border-radius: 16px;
+  background: var(--bg); color: var(--ink); text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 9, 26, .18);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.hero-offering:hover, .hero-offering:focus-visible { transform: translateY(-4px); border-color: var(--accent); background: var(--bg-3); }
+.hero-offering-no { margin-bottom: 14px; color: var(--accent); font: 700 11px/1.3 'Inter', sans-serif; letter-spacing: .08em; }
+.hero-offering strong { font-size: 17px; line-height: 1.25; }
+.hero-offering small { margin-top: 8px; color: var(--ink-2); font-size: 13px; line-height: 1.4; }
+.hero-offering-link { margin-top: auto; padding-top: 15px; color: var(--accent); font-size: 13px; font-weight: 700; }
+.card[id^="product-"] { scroll-margin-top: 115px; }
+@media (max-width: 1050px) { .hero-offerings-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .offerings-section { padding: 48px 0; } .hero-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .hero-offerings-grid { grid-template-columns: 1fr; } .hero-offering { min-height: 145px; } }
 
 /* Revit basics announcement */
 .promo-card {

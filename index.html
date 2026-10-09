@@ -3058,6 +3058,7 @@
       loading.textContent = document.documentElement.lang === 'en'
         ? 'Registrations are unavailable. Please check the admin database setup.'
         : 'ยังโหลดผู้ลงทะเบียนไม่ได้ กรุณาตรวจการตั้งค่าฐานข้อมูลสำหรับผู้ดูแล';
+      loading.textContent += ` (${error.code || 'error'}: ${error.message || 'unknown'})`;
       console.error('Admin registrations:', error.code, error.message, error.details);
     }
   }

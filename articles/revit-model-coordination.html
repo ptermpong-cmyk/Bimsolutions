@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../BiM_Solutions_profile.png">
+  <title>เริ่มต้นประสานโมเดล Revit | BiMSolutions</title>
+  <meta name="description" content="เช็กลิสต์การประสานโมเดล Revit สำหรับงานสถาปัตย์ โครงสร้าง และงานระบบ">
+  <link rel="canonical" href="https://bimsolutions-th.com/articles/revit-model-coordination.html">
+  <script src="../site-theme.js?v=1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="../supabase-config.js" defer></script>
+  <script src="../site-header.js?v=2" defer></script>
+  <script src="../site-login.js?v=2" defer></script>
+  <link rel="stylesheet" href="../site-header.css?v=1"><link rel="stylesheet" href="../site-login.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=2"><link rel="stylesheet" href="../brand-refresh.css?v=5">
+</head>
+<body>
+  <div class="bims-header-slot" data-root="../" data-active="articles"></div>
+  <main>
+    <article class="article-page container" style="max-width:860px;padding-top:76px;padding-bottom:76px">
+      <p class="eyebrow">งานประสานแบบ · 9 ตุลาคม 2569</p>
+      <h1>เริ่มต้นประสานโมเดล Revit: ก่อนส่งแบบควรตรวจอะไรบ้าง</h1>
+      <p class="lead">การประสานโมเดลที่ดีเริ่มจากข้อมูลชุดเดียวกัน ก่อนเปิด Clash Detection ให้ทีมตรวจ 5 จุดนี้เพื่อให้การประชุมแก้ปัญหาได้ตรงประเด็น</p>
+      <img src="./assets/model-views.svg" alt="ภาพตัวอย่างมุมมองการประสานโมเดล Revit" style="width:100%;margin:28px 0;border-radius:18px;background:#eef5ff">
+      <h2>1. ใช้ Project Base Point และระดับอ้างอิงเดียวกัน</h2>
+      <p>ตรวจให้ทุกไฟล์เชื่อมต่อกันด้วยพิกัดเดียวกัน ระดับชั้นและชื่อ Level ต้องเข้าใจตรงกัน เพราะจุดคลาดเคลื่อนเพียงเล็กน้อยทำให้แบบซ้อนกันผิดตำแหน่งได้ทั้งโครงการ</p>
+      <h2>2. จัดชื่อ View และ Workset ให้ค้นหาได้ง่าย</h2>
+      <p>สร้างมุมมองสำหรับตรวจงานโดยเฉพาะ เช่น COOR-ARC, COOR-STR และ COOR-MEP พร้อมใช้ View Template เดียวกัน ทีมจึงเห็นข้อมูลชุดเดียวกันระหว่างประชุม</p>
+      <h2>3. ตรวจช่องเปิดและพื้นที่สงวนงานระบบ</h2>
+      <p>ก่อนตรวจจุดชน ให้สถาปัตย์และโครงสร้างยืนยันขนาดช่องเปิด พื้นที่ฝ้า และระดับคาน งานระบบจะวางแนวท่อและรางสายได้โดยไม่ต้องแก้ซ้ำ</p>
+      <h2>4. แยกประเด็นตามผู้รับผิดชอบ</h2>
+      <p>บันทึกประเด็นด้วยรหัส ขอบเขต ภาพประกอบ และกำหนดวันตอบกลับ วิธีนี้เปลี่ยนรายการ Clash จำนวนมากให้กลายเป็นงานที่ติดตามได้จริง</p>
+      <h2>5. สรุปผลก่อนออกรอบถัดไป</h2>
+      <p>เมื่อแก้ไขแล้ว ให้ Publish โมเดล เวอร์ชันใหม่ และตรวจประเด็นเดิมอีกครั้งก่อนปิดงาน การเก็บบันทึกเวอร์ชันช่วยให้ทุกฝ่ายมั่นใจว่าใช้ข้อมูลล่าสุด</p>
+      <p style="margin-top:34px"><a class="read-more" href="./">← กลับไปหน้าบทความ</a></p>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 BiMSolutions</span><a href="../">กลับหน้าแรก</a></div></footer>
+</body>
+</html>

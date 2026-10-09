@@ -16,7 +16,8 @@ security definer
 set search_path = ''
 as $$
 begin
-  if auth.uid() is null or not public.bims_is_admin() then
+  if auth.uid() is null or lower(coalesce(auth.jwt() ->> 'email', '')) not in
+    ('p.termpong@gmail.com', 'chaisin.kiti@gmail.com') then
     raise exception 'Admin access required';
   end if;
 

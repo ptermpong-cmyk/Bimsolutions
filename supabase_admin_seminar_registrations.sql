@@ -2,6 +2,8 @@
 alter table public.seminar_registrations
   add column if not exists attendance_status text not null default 'registered'
   check (attendance_status in ('registered', 'confirmed', 'attended', 'cancelled'));
+alter table public.seminar_registrations
+  add column if not exists confirmation_sent_at timestamptz;
 
 create or replace function public.admin_seminar_registrations_v2()
 returns table (

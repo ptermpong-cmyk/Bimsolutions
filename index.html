@@ -1042,7 +1042,7 @@
   .license-foot small { display:block; color:#7888a5; margin-top:2px; }
   .license-logout { border:0; border-radius:12px; padding:14px 26px; background:linear-gradient(135deg,#2677f4,#074bd8); color:#fff; font:700 16px 'Space Grotesk',sans-serif; cursor:pointer; box-shadow:0 9px 18px rgba(20,91,220,.24); }
   @media (max-width:650px) { .license-card{padding:22px 16px}.license-title-row h2{font-size:31px}.license-live{min-width:auto;padding:10px}.license-title-row{align-items:flex-start}.license-grid{padding:7px}.license-row{grid-template-columns:38px 1fr 34px;gap:8px}.license-label{display:none}.license-value{font-size:13px}.license-foot{align-items:flex-start;gap:14px}.license-logout{padding:12px 15px;font-size:14px} }</style>
-<link rel="stylesheet" href="./brand-refresh.css?v=4" />
+<link rel="stylesheet" href="./brand-refresh.css?v=5" />
 </head>
 <body>
 
@@ -2213,8 +2213,8 @@
         <span style="background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: .5px; font-weight: 700;">ADMIN</span>
       </h3>
       <p class="modal-sub" style="margin: 0 0 20px;">
-        <span data-i18n-th>จัดการสมาชิก คำขอทดลองใช้ และ subscription</span>
-        <span data-i18n-en>Manage members, trial requests, and subscriptions</span>
+        <span data-i18n-th>จัดการสมาชิก คำขอทดลองใช้ ผู้ลงทะเบียน และ subscription</span>
+        <span data-i18n-en>Manage members, trial requests, registrations, and subscriptions</span>
       </p>
     </div>
     <div class="modal-body">
@@ -2243,6 +2243,9 @@
         </button>
         <button class="admin-tab" data-tab="members" onclick="switchAdminTab('members')">
           👥 <span data-i18n-th>สมาชิก</span><span data-i18n-en>Members</span>
+        </button>
+        <button class="admin-tab" data-tab="registrations" onclick="switchAdminTab('registrations')">
+          📋 <span data-i18n-th>ผู้ลงทะเบียน</span><span data-i18n-en>Registrations</span>
         </button>
         <button class="admin-tab" data-tab="subs" onclick="switchAdminTab('subs')">
           💳 <span data-i18n-th>Subscriptions</span><span data-i18n-en>Subscriptions</span>
@@ -2285,6 +2288,25 @@
                 </tr>
               </thead>
               <tbody id="members-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-registrations" class="admin-tab-content">
+        <p class="admin-registration-intro"><span data-i18n-th>ผู้ลงทะเบียนกิจกรรมเรียนรู้ Revit เบื้องต้น · 28 ตุลาคม 2569</span><span data-i18n-en>Revit Basics event registrations · 28 October 2026</span></p>
+        <div id="registrations-loading" class="admin-loading">Loading...</div>
+        <div id="registrations-content" style="display:none;">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th><span data-i18n-th>วันที่ลงทะเบียน</span><span data-i18n-en>Registered</span></th>
+                <th><span data-i18n-th>ชื่อ</span><span data-i18n-en>Name</span></th>
+                <th>Email</th>
+                <th><span data-i18n-th>เบอร์โทร</span><span data-i18n-en>Phone</span></th>
+                <th><span data-i18n-th>สายงาน</span><span data-i18n-en>Discipline</span></th>
+              </tr></thead>
+              <tbody id="registrations-tbody"></tbody>
             </table>
           </div>
         </div>
@@ -2963,6 +2985,7 @@
     document.getElementById('tab-' + tab).classList.add('active');
     if (tab === 'trials') loadAdminTrials();
     if (tab === 'members') loadAdminMembers();
+    if (tab === 'registrations') loadAdminRegistrations();
     if (tab === 'subs') loadAdminSubs();
   }
   async function adminRpc(name, args) {
@@ -3015,6 +3038,28 @@
       tbody.innerHTML = data.map(m => `<tr><td>${adminDate(m.created_at)}</td><td><strong>${escapeHtml(m.email || '-')}</strong>${isAdmin(m.email) ? ' <span class="admin-tag">ADMIN</span>' : ''}</td><td>${escapeHtml(m.email || '-')}</td><td>-</td><td>${adminDate(m.last_sign_in_at)}</td></tr>`).join('');
       loading.style.display = 'none'; content.style.display = 'block';
     } catch (e) { loading.innerHTML = '<div class="admin-empty">Error: ' + escapeHtml(e.message) + '</div>'; }
+  }
+  async function loadAdminRegistrations() {
+    const loading = document.getElementById('registrations-loading'), content = document.getElementById('registrations-content'), tbody = document.getElementById('registrations-tbody');
+    loading.style.display = 'block'; content.style.display = 'none';
+    if (!window.BIMS_USE_BACKEND) { loading.textContent = 'Backend ยังไม่ได้เชื่อมต่อ'; return; }
+    try {
+      const rows = await adminRpc('admin_seminar_registrations');
+      if (!rows?.length) { loading.textContent = document.documentElement.lang === 'en' ? 'No registrations yet.' : 'ยังไม่มีผู้ลงทะเบียน'; return; }
+      const disciplines = {
+        architecture:['สถาปัตยกรรม','Architecture'], structure:['โครงสร้าง','Structure'],
+        mechanical:['เครื่องกล','Mechanical'], electrical:['ไฟฟ้า','Electrical'],
+        plumbing:['สุขาภิบาล','Plumbing'], other:['อื่น ๆ','Other']
+      };
+      const en = document.documentElement.lang === 'en';
+      tbody.innerHTML = rows.map(row => `<tr><td>${adminDate(row.created_at)}</td><td><strong>${escapeHtml(row.full_name)}</strong></td><td>${escapeHtml(row.email)}</td><td>${escapeHtml(row.phone)}</td><td>${escapeHtml(disciplines[row.discipline]?.[en ? 1 : 0] || row.discipline || '-')}</td></tr>`).join('');
+      loading.style.display = 'none'; content.style.display = 'block';
+    } catch (error) {
+      loading.textContent = document.documentElement.lang === 'en'
+        ? 'Registrations are unavailable. Please check the admin database setup.'
+        : 'ยังโหลดผู้ลงทะเบียนไม่ได้ กรุณาตรวจการตั้งค่าฐานข้อมูลสำหรับผู้ดูแล';
+      console.error(error);
+    }
   }
   async function loadAdminSubs() {
     const loading = document.getElementById('subs-loading'), content = document.getElementById('subs-content'), tbody = document.getElementById('subs-tbody');

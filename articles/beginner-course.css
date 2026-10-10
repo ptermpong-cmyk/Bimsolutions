@@ -1,0 +1,55 @@
+.beginner-course .hero { padding: 54px 0; background: radial-gradient(circle at 85% 20%, rgba(37,99,235,.22), transparent 50%), #0a1830; }
+.beginner-course .hero h1 { color: #f8fafc; }
+.beginner-course .hero .lead { color: #dbeafe; }
+.beginner-course .hero .eyebrow { color: #93c5fd; }
+.beginner-course .hero .course-note, .beginner-course .hero figcaption { color: #cbd5e1; }
+.course-hero { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 42px; }
+.beginner-course h1 { font-size: clamp(36px, 4vw, 55px); line-height: 1.3; }
+.course-hero figure { margin: 0; }
+.course-hero img { width: 100%; height: auto; border-radius: 24px; display: block; }
+.course-hero figcaption, .course-note { color: var(--muted); font-size: 15px; }
+.course-button { display: inline-block; padding: 12px 24px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 12px; font-weight: 700; }
+.course-button:hover { background: #1d4ed8; color: #fff; }
+.course-note { margin: 14px 0 0; }
+.course-intro { padding-top: 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; }
+.course-intro h2, .course-map h2, .final-review h2 { line-height: 1.4; }
+.practice-brief { padding: 28px; background: var(--callout-bg); border: 1px solid var(--line); border-radius: 20px; }
+.practice-brief ul { padding-left: 24px; }
+.course-map { padding: 46px 0; }
+.map-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.lesson-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.lesson-links a { display: flex; align-items: center; gap: 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; text-decoration: none; font-weight: 600; }
+.lesson-links a:hover { border-color: var(--blue); }
+.lesson-links span { color: var(--blue-soft); font-weight: 700; }
+.lesson { margin-bottom: 32px; border: 1px solid var(--line); border-radius: 24px; padding: 32px; background: var(--surface); scroll-margin-top: 110px; }
+.lesson header { display: flex; align-items: flex-start; gap: 20px; }
+.lesson-number { display: grid; place-items: center; background: var(--pill-bg); color: var(--blue-soft); border-radius: 16px; width: 60px; height: 60px; flex: 0 0 60px; font-size: 28px; font-weight: 700; }
+.lesson h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.4; margin: 6px 0 12px; }
+.lesson h3 { font-size: 24px; margin-bottom: 12px; }
+.lesson p, .lesson li { color: var(--body-copy); }
+.video-slot { border: 1px dashed var(--line); border-radius: 16px; padding: 24px; margin: 22px 0; background: var(--bg); }
+.video-slot p { margin: 6px 0 0; }
+.video-slot iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 12px; display: block; margin: 12px 0; }
+.lesson-columns { display: grid; grid-template-columns: 1.45fr 1fr; align-items: start; gap: 28px; }
+.lesson ol { padding-left: 24px; margin-top: 0; }
+.lesson li { margin-bottom: 12px; }
+.checkpoint { background: var(--callout-bg); padding: 24px; border-radius: 16px; }
+.checkpoint ul { padding-left: 22px; }
+.beginner-course details { border-top: 1px solid var(--line); padding-top: 14px; }
+.beginner-course summary { cursor: pointer; font-weight: 700; color: var(--ink); }
+.beginner-course details p { margin-top: 12px; }
+.complete { display: flex; align-items: center; gap: 12px; padding: 18px 0; margin-top: 16px; border-top: 1px solid var(--line); cursor: pointer; }
+.complete input { width: 22px; height: 22px; accent-color: #2563eb; flex-shrink: 0; }
+.next-lesson { font-weight: 700; }
+.ribbon-example { margin: 24px 0; overflow-x: auto; }
+.ribbon-example img { width: 100%; min-width: 800px; height: auto; display: block; }
+.ribbon-example figcaption { font-size: 15px; margin-top: 10px; }
+.final-review { background: var(--callout-bg); border-radius: 24px; padding: 32px; scroll-margin-top: 110px; }
+.course-sources { padding: 36px 0 48px; color: var(--muted); }
+.course-sources h2 { font-size: 24px; }
+.skip-course { position: absolute; left: 16px; top: -100px; z-index: 100; background: var(--bg); padding: 12px; }
+.skip-course:focus { top: 16px; }
+.beginner-course code { overflow-wrap: anywhere; font-size: .85em; }
+@media(max-width: 850px) { .course-hero, .course-intro, .lesson-columns { grid-template-columns: 1fr; } .lesson-links { grid-template-columns: repeat(2, 1fr); } .course-hero figure { max-width: 560px; } }
+@media(max-width: 480px) { .lesson { padding: 20px; } .lesson header { gap: 12px; } .lesson-number { width: 42px; height: 42px; flex-basis: 42px; font-size: 22px; } .lesson-links a { padding: 12px; gap: 8px; } .checkpoint, .practice-brief, .final-review { padding: 20px; } }
+@media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

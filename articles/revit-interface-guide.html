@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../BiM_Solutions_profile.png">
+  <title>คู่มือแถบเครื่องมือ Revit: รู้จัก Ribbon, Properties และ Project Browser | BiMSolutions</title>
+  <meta name="description" content="คู่มือทำความรู้จักหน้าจอ Revit สำหรับผู้เริ่มต้น: แถบ Ribbon ทุกแท็บ, Properties Palette, Project Browser และพื้นที่ทำงานโมเดล">
+  <link rel="canonical" href="https://bimsolutions-th.com/articles/revit-interface-guide.html">
+  <script src="../site-theme.js?v=1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="../supabase-config.js" defer></script>
+  <script src="../site-header.js?v=2" defer></script>
+  <script src="../site-login.js?v=2" defer></script>
+  <link rel="stylesheet" href="../site-header.css?v=1">
+  <link rel="stylesheet" href="../site-login.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=3">
+  <link rel="stylesheet" href="../brand-refresh.css?v=5">
+</head>
+<body>
+  <div class="bims-header-slot" data-root="../" data-active="articles"></div>
+  <main>
+    <div class="container breadcrumb"><a href="./">บทความ</a> / คู่มือแถบเครื่องมือ Revit</div>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Revit interface guide</div>
+        <h1>รู้จักหน้าจอ Revit: แถบเครื่องมือสำคัญสำหรับเริ่มทำงาน BIM</h1>
+        <p class="lead">คู่มือภาพรวมของ Ribbon, Properties Palette, Project Browser และพื้นที่ทำงาน เพื่อช่วยให้หาคำสั่งที่ต้องใช้ได้เร็วขึ้น</p>
+        <div class="meta"><span>โดยทีม BiMSolutions</span><span>10 ตุลาคม 2569</span><span>อ่านประมาณ 10 นาที</span></div>
+      </div>
+    </section>
+
+    <figure class="container cover-figure">
+      <img src="./assets/revit-interface/drawing-canvas.png" alt="พื้นที่ทำงาน Revit ในมุมมอง Floor Plan แสดง Grid, Level และกรอบ Crop Region" width="1238" height="889" decoding="async">
+      <figcaption>หน้าจอ Revit แบ่งเป็นพื้นที่สร้างโมเดลและชุดเครื่องมือสำหรับควบคุมข้อมูลของโมเดล</figcaption>
+    </figure>
+
+    <div class="container content article-layout">
+      <article class="article-body">
+        <p>Revit มีคำสั่งจำนวนมาก แต่ผู้เริ่มต้นไม่จำเป็นต้องจำทุกปุ่มในวันแรก สิ่งสำคัญคือรู้ว่า <strong>คำสั่งแต่ละกลุ่มอยู่ตรงไหนและใช้ในสถานการณ์ใด</strong> บทความนี้พาไล่ดูพื้นที่หลักของหน้าจอจากภาพตัวอย่าง เพื่อให้เริ่มสร้างโมเดลและค้นหาคำสั่งได้อย่างมั่นใจ</p>
+        <div class="callout"><p>ชื่อคำสั่งและชุดเครื่องมืออาจต่างกันเล็กน้อยตามเวอร์ชัน Revit หรือชุด Extension ที่ติดตั้ง แต่โครงสร้างหลักของหน้าจอยังคงเหมือนกัน</p></div>
+
+        <h2 id="three-areas">3 พื้นที่ที่ควรรู้จักก่อน</h2>
+        <ol>
+          <li><strong>Ribbon</strong> คือแถบด้านบน แยกคำสั่งตามประเภทงาน เช่น Architecture, Structure และ Systems</li>
+          <li><strong>Properties Palette</strong> คือแผงแก้คุณสมบัติของ View หรือ Element ที่เลือกอยู่</li>
+          <li><strong>Project Browser</strong> คือแผงรวม View, Schedule และ Sheet ของทั้งโครงการ</li>
+        </ol>
+
+        <h2 id="ribbon">Ribbon: แถบคำสั่งหลักของ Revit</h2>
+        <p>Ribbon แบ่งคำสั่งเป็นแท็บตามลักษณะงาน เมื่อเลือกแท็บแล้วจะเห็น Panel ย่อย เช่น Build, Circulation, Datum หรือ Work Plane วิธีใช้งานที่ดีคือเริ่มจากแท็บที่สอดคล้องกับสิ่งที่กำลังสร้าง แทนการค้นหาคำสั่งทีละปุ่ม</p>
+
+        <section class="tool-section" id="architecture">
+          <h3>Architecture — สร้างองค์ประกอบสถาปัตยกรรม</h3>
+          <p>ใช้สร้าง Wall, Door, Window, Component, Column, Roof, Ceiling และ Floor รวมถึง Room, Area, Grid และ Level เหมาะกับการเริ่มโมเดลอาคารและกำหนดพื้นที่ใช้งาน</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/architecture-ribbon.png" alt="Ribbon แท็บ Architecture ของ Revit มีคำสั่ง Wall Door Window Roof Floor Room Grid และ Level" width="1920" height="119" loading="lazy"><figcaption>แท็บ Architecture รวมคำสั่งสร้างองค์ประกอบอาคารและข้อมูลพื้นที่</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="structure">
+          <h3>Structure — โมเดลโครงสร้าง</h3>
+          <p>สำหรับวาง Beam, Structural Wall, Structural Column, Floor, Truss, Brace และ Foundation ใช้ร่วมกับ Grid และ Level เพื่อให้ตำแหน่งกับระดับของโครงสร้างสัมพันธ์กันทั้งโมเดล</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/structure-ribbon.png" alt="Ribbon แท็บ Structure มีคำสั่ง Beam Structural Wall Column Floor Truss Brace และ Foundation" width="1920" height="119" loading="lazy"><figcaption>เริ่มงานโครงสร้างจากแนว Grid และ Level ที่ตั้งค่าไว้ก่อน</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="concrete-steel">
+          <h3>Concrete และ Steel — รายละเอียดคอนกรีตเสริมเหล็กและเหล็กรูปพรรณ</h3>
+          <p>แท็บ Concrete มีเครื่องมือ Rebar, Reinforcement Settings, Precast และ Shop Drawing ส่วน Steel ช่วยสร้าง Connection, Plate, Bolts, Welds และคำสั่งปรับแต่งชิ้นงานเหล็ก ใช้เมื่อโมเดลต้องการรายละเอียดสำหรับงานผลิตหรือประสานแบบ</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/concrete-ribbon.png" alt="Ribbon แท็บ Concrete มีคำสั่ง Rebar Reinforcement Settings Precast และ Shop Drawings" width="1920" height="119" loading="lazy"><figcaption>Concrete รวมคำสั่งเหล็กเสริมและรายละเอียดชิ้นงานคอนกรีตสำเร็จรูป</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/steel-ribbon.png" alt="Ribbon แท็บ Steel มีคำสั่ง Connection Plate Bolts Welds และเครื่องมือตัดชิ้นงาน" width="1920" height="119" loading="lazy"><figcaption>Steel เหมาะกับการกำหนดรายละเอียดจุดต่อและการผลิตโครงสร้างเหล็ก</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="systems">
+          <h3>Systems — งานระบบ MEP</h3>
+          <p>แท็บ Systems แยกกลุ่มคำสั่ง HVAC, Plumbing และ Electrical เช่น Duct, Pipe, Sprinkler, Cable Tray และ Electrical Equipment เหมาะกับการสร้างระบบประกอบอาคารและตรวจจุดเชื่อมต่อระหว่างระบบ</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/systems-ribbon.png" alt="Ribbon แท็บ Systems มีคำสั่ง Duct Pipe Plumbing Electrical และ MEP Equipment" width="1920" height="119" loading="lazy"><figcaption>Systems ใช้สร้างและจัดการโมเดลงานระบบประกอบอาคาร</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="insert-annotate">
+          <h3>Insert และ Annotate — นำเข้าข้อมูลและทำเอกสารแบบ</h3>
+          <p><strong>Insert</strong> ใช้ Link CAD/IFC/Model, Import, Load Family และเชื่อมไฟล์อ้างอิง ส่วน <strong>Annotate</strong> ใช้ใส่มิติ ข้อความ Tag, Detail Line, Revision Cloud และ Symbol เพื่อสื่อสารแบบก่อสร้าง</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/insert-ribbon.png" alt="Ribbon แท็บ Insert มีคำสั่ง Link CAD Link IFC Import และ Load Family" width="1920" height="119" loading="lazy"><figcaption>ให้เลือก Link เมื่อต้องการอ้างอิงไฟล์ภายนอกและยังอัปเดตตามต้นฉบับ</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/annotate-ribbon.png" alt="Ribbon แท็บ Annotate มีคำสั่ง Dimension Text Tag Detail และ Symbol" width="1920" height="119" loading="lazy"><figcaption>Annotate คือชุดคำสั่งหลักสำหรับทำแบบและสื่อสารข้อมูลบน Sheet</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="analysis-site">
+          <h3>Analyze และ Massing &amp; Site — วิเคราะห์และวางผัง</h3>
+          <p>Analyze รวมเครื่องมือการตรวจสอบและวิเคราะห์ เช่น Space, Energy, Electrical และ Structural Analysis ขณะที่ Massing &amp; Site ใช้สร้าง Mass, Toposolid, Site Component และ Parking เพื่อเริ่มต้นงานผังบริเวณหรือศึกษารูปทรง</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/analyze-ribbon.png" alt="Ribbon แท็บ Analyze มีคำสั่ง Space Energy Electrical และ Structural Analysis" width="1920" height="119" loading="lazy"><figcaption>ใช้ Analyze เมื่อโมเดลมีข้อมูลเพียงพอสำหรับตรวจสอบสมรรถนะหรือประสานระบบ</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/massing-site-ribbon.png" alt="Ribbon แท็บ Massing and Site มีคำสั่ง Mass Toposolid Site Component Parking และ Property Line" width="1920" height="119" loading="lazy"><figcaption>Massing &amp; Site ช่วยวางข้อมูลพื้นที่ตั้งและรูปทรงเบื้องต้นของโครงการ</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="collaborate-view-manage">
+          <h3>Collaborate, View และ Manage — ทำงานร่วมกัน ควบคุมมุมมอง และตั้งค่าโครงการ</h3>
+          <p><strong>Collaborate</strong> มี Worksets, Synchronize และ Coordination Review สำหรับทีมหลายคน <strong>View</strong> ใช้สร้าง 3D View, Section, Elevation, Sheet, Schedule และปรับ Visibility/Graphics ส่วน <strong>Manage</strong> เก็บการตั้งค่า Units, Materials, Project Parameters, Phases และ Design Options</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/collaborate-ribbon.png" alt="Ribbon แท็บ Collaborate มี Worksets Synchronize Coordination Review และ Interference Check" width="1920" height="119" loading="lazy"><figcaption>Collaborate เป็นจุดรวมคำสั่งที่เกี่ยวข้องกับการทำงานร่วมกันและการตรวจประสาน</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/view-ribbon.png" alt="Ribbon แท็บ View มี 3D View Section Callout Elevation Sheet Schedule และ Visibility Graphics" width="1920" height="119" loading="lazy"><figcaption>สร้าง View ให้เป็นระบบตั้งแต่ต้น แล้วจัดขึ้น Sheet เมื่อพร้อมออกแบบ</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/manage-ribbon.png" alt="Ribbon แท็บ Manage มี Project Units Materials Project Parameters Phases และ Dynamo" width="1920" height="119" loading="lazy"><figcaption>Manage คือจุดตั้งค่ากลางของ Project จึงควรใช้อย่างระมัดระวังและตกลงมาตรฐานกับทีม</figcaption></figure>
+        </section>
+
+        <section class="tool-section" id="addins-modify">
+          <h3>Add-Ins และ Modify — เครื่องมือเสริมและการแก้ไข</h3>
+          <p>Add-Ins แสดง Extension ที่ติดตั้งเพิ่ม เช่น เครื่องมือส่งโมเดลหรือสร้างข้อมูลเฉพาะทาง ส่วน Modify เป็นแท็บที่ใช้บ่อยที่สุด เพราะรวม Move, Copy, Rotate, Align, Trim, Cut และคำสั่งแก้ไข Element ที่เลือกอยู่</p>
+          <figure class="article-figure"><img src="./assets/revit-interface/addins-ribbon.png" alt="Ribbon แท็บ Add-Ins แสดงเครื่องมือเสริมสำหรับ Revit" width="1920" height="119" loading="lazy"><figcaption>ตำแหน่งและคำสั่งใน Add-Ins จะเปลี่ยนไปตาม Extension ที่ติดตั้ง</figcaption></figure>
+          <figure class="article-figure"><img src="./assets/revit-interface/modify-ribbon.png" alt="Ribbon แท็บ Modify มีคำสั่ง Move Copy Rotate Align Cut และเครื่องมือแก้ไข" width="1920" height="119" loading="lazy"><figcaption>เมื่อเลือก Element แล้ว ให้ดู Modify ก่อน เพราะคำสั่งที่เกี่ยวข้องกับสิ่งที่เลือกอาจปรากฏเพิ่มขึ้น</figcaption></figure>
+        </section>
+
+        <h2 id="properties-browser">Properties Palette และ Project Browser</h2>
+        <p>สองแผงนี้ช่วยให้ควบคุมโมเดลโดยไม่ต้องเปิดคำสั่งใหม่ Properties จะเปลี่ยนตามสิ่งที่เลือก เช่น View Scale, Detail Level, View Range หรือ Type ของ Element ขณะที่ Project Browser ใช้เปิดและจัดหมวด View, Schedule และ Sheet ทั้งหมดในโครงการ</p>
+        <figure class="article-figure"><img src="./assets/revit-interface/properties-palette.png" alt="Properties Palette ของ Revit แสดงคุณสมบัติ Floor Plan เช่น View Scale Detail Level Visibility Graphics และ View Range" width="310" height="847" loading="lazy"><figcaption>ตรวจ Properties ทุกครั้งก่อนวางหรือแก้ไข Element เพื่อให้ค่าที่ใช้ตรงกับ View และประเภทงาน</figcaption></figure>
+        <figure class="article-figure"><img src="./assets/revit-interface/project-browser.png" alt="Project Browser ของ Revit แสดง Views Floor Plans 3D Views Schedules และ Sheets" width="308" height="868" loading="lazy"><figcaption>ตั้งชื่อและจัดหมวด View ใน Project Browser ให้ชัด เพื่อให้ทีมค้นหาแบบได้รวดเร็ว</figcaption></figure>
+
+        <h2 id="workflow">ลำดับฝึกใช้งานที่แนะนำ</h2>
+        <ol>
+          <li>เปิด View จาก Project Browser และสังเกตค่าที่ Properties Palette</li>
+          <li>กำหนด Level และ Grid จากแท็บ Architecture หรือ Structure</li>
+          <li>สร้าง Element ง่าย ๆ เช่น Wall, Column หรือ Floor</li>
+          <li>ใช้ Modify เพื่อย้าย คัดลอก หรือจัดตำแหน่ง</li>
+          <li>เปิด 3D View, Section และ Sheet จากแท็บ View เพื่อตรวจผลลัพธ์</li>
+          <li>เมื่อทำงานเป็นทีม ให้เรียนรู้ Collaborate และตั้งชื่อ View/Sheet ตามมาตรฐานโครงการ</li>
+        </ol>
+        <div class="article-cta"><strong>เริ่มต้นจากคำสั่งที่จำเป็นก่อน</strong><p>เมื่อใช้ Ribbon, Properties และ Project Browser ได้คล่อง การเรียนรู้เครื่องมือเฉพาะทางของ Revit จะเร็วขึ้นมาก</p><a class="read-more" href="./revit-basics.html">อ่านพื้นฐาน Revit ต่อ <span aria-hidden="true">→</span></a></div>
+      </article>
+      <aside class="toc" aria-label="สารบัญบทความ">
+        <strong>ในบทความนี้</strong>
+        <a href="#three-areas">3 พื้นที่หลัก</a>
+        <a href="#ribbon">Ribbon</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#structure">Structure</a>
+        <a href="#systems">Systems</a>
+        <a href="#insert-annotate">Insert / Annotate</a>
+        <a href="#analysis-site">Analyze / Site</a>
+        <a href="#collaborate-view-manage">Collaborate / View / Manage</a>
+        <a href="#addins-modify">Add-Ins / Modify</a>
+        <a href="#properties-browser">Properties / Browser</a>
+        <a href="#workflow">ลำดับฝึกใช้งาน</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 BiMSolutions</span><a href="./">บทความทั้งหมด</a></div></footer>
+</body>
+</html>

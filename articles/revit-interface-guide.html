@@ -19,8 +19,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css?v=3">
   <link rel="stylesheet" href="../brand-refresh.css?v=5">
+  <link rel="stylesheet" href="./interface-guide.css?v=1">
+  <script src="./interface-guide.js?v=1" defer></script>
 </head>
-<body>
+<body class="interface-guide">
   <div class="bims-header-slot" data-root="../" data-active="articles"></div>
   <main>
     <div class="container breadcrumb"><a href="./">บทความ</a> / คู่มือแถบเครื่องมือ Revit</div>
@@ -40,6 +42,13 @@
 
     <div class="container content article-layout">
       <article class="article-body">
+        <section class="learning-start" aria-label="แผนการเรียน">
+          <span class="lesson-label">เริ่มตรงนี้ · เรียนไปพร้อมเปิด Revit</span>
+          <h2>อ่าน → ลองทำ → ตรวจผล</h2>
+          <p>ใช้ไฟล์ทดลองสำหรับฝึก เปิดบทความไว้ข้างโปรแกรม แล้วเรียนทีละหัวข้อ ไม่จำเป็นต้องใช้ทุกแท็บในครั้งเดียว</p>
+          <div class="learning-path"><a href="#three-areas"><b>01</b> รู้จักหน้าจอ</a><a href="#architecture"><b>02</b> หาเครื่องมือ</a><a href="#workflow"><b>03</b> ลองด้วยตัวเอง</a></div>
+          <p class="study-note">เป้าหมาย: เปิด View ได้ เลือกเครื่องมือถูกแท็บ และแยกให้ออกว่ากำลังแก้โมเดลหรือการแสดงผล</p>
+        </section>
         <p>Revit มีคำสั่งจำนวนมาก แต่ผู้เริ่มต้นไม่จำเป็นต้องจำทุกปุ่มในวันแรก สิ่งสำคัญคือรู้ว่า <strong>คำสั่งแต่ละกลุ่มอยู่ตรงไหนและใช้ในสถานการณ์ใด</strong> บทความนี้พาไล่ดูพื้นที่หลักของหน้าจอจากภาพตัวอย่าง เพื่อให้เริ่มสร้างโมเดลและค้นหาคำสั่งได้อย่างมั่นใจ</p>
         <div class="callout"><p>ชื่อคำสั่งและชุดเครื่องมืออาจต่างกันเล็กน้อยตามเวอร์ชัน Revit หรือชุด Extension ที่ติดตั้ง แต่โครงสร้างหลักของหน้าจอยังคงเหมือนกัน</p></div>
 
@@ -113,6 +122,13 @@
         <figure class="article-figure"><img src="./assets/revit-interface/project-browser.png" alt="Project Browser ของ Revit แสดง Views Floor Plans 3D Views Schedules และ Sheets" width="308" height="868" loading="lazy"><figcaption>ตั้งชื่อและจัดหมวด View ใน Project Browser ให้ชัด เพื่อให้ทีมค้นหาแบบได้รวดเร็ว</figcaption></figure>
 
         <h2 id="workflow">ลำดับฝึกใช้งานที่แนะนำ</h2>
+        <p>เริ่มจากแบบฝึกเล็ก ๆ ด้านล่าง ใช้เวลาตามจังหวะของตัวเอง และตรวจผลก่อนเรียนหัวข้อถัดไป</p>
+        <div class="practice-grid">
+          <section><span class="lesson-label">แบบฝึก 01 · สำรวจ</span><h3>เปิดแปลนและดูคุณสมบัติ</h3><p>ดับเบิลคลิก Floor Plan ใน Project Browser คลิกพื้นที่ว่าง แล้วหา View Scale ใน Properties</p><p class="check-result"><strong>ตรวจผล:</strong> ชื่อแปลนบนแท็บตรงกับ View ที่เปิด และ Properties แสดงคุณสมบัติของแปลน</p></section>
+          <section><span class="lesson-label">แบบฝึก 02 · สร้าง</span><h3>วางผนังหนึ่งแนว</h3><p>เปิด Architecture → Wall เลือกชนิดผนังและระดับอ้างอิงใน Properties แล้ววาดผนังสั้น ๆ ในไฟล์ทดลอง</p><p class="check-result"><strong>ตรวจผล:</strong> เปิด 3D View จาก View แล้วเห็นผนังที่สร้าง ลองเลือกผนังและดูว่าคุณสมบัติเปลี่ยนจาก View เป็น Wall</p></section>
+          <section><span class="lesson-label">แบบฝึก 03 · แก้ไข</span><h3>คัดลอกและเปรียบเทียบ</h3><p>เลือกผนัง ใช้ Modify → Copy เพื่อสร้างอีกแนว แล้วกลับไปดูแปลนและ 3D View</p><p class="check-result"><strong>ตรวจผล:</strong> เห็นผนังสองแนวในโมเดลเดียวกันทั้งสองมุมมอง</p></section>
+        </div>
+        <details class="knowledge-check"><summary>ทบทวน: จะเปิดแปลน แก้ขนาดผนัง และใส่มิติ ต้องไปที่ไหน?</summary><p><strong>เปิดแปลน:</strong> Project Browser · <strong>แก้คุณสมบัติผนัง:</strong> เลือกผนังแล้วดู Properties · <strong>ใส่มิติ:</strong> Annotate หากตอบได้ครบ คุณเริ่มแยกหน้าที่ของพื้นที่ทำงานได้แล้ว</p></details>
         <ol>
           <li>เปิด View จาก Project Browser และสังเกตค่าที่ Properties Palette</li>
           <li>กำหนด Level และ Grid จากแท็บ Architecture หรือ Structure</li>

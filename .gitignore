@@ -1,0 +1,4 @@
+# Local backups may contain private Supabase user data
+backup/
+# Unpublished portfolio review materials
+drafts/

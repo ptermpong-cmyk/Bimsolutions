@@ -7,6 +7,19 @@
   <title>บริการ BIM Coordination, BOQ, Shop Drawing และเรียน Revit | BiMSolutions</title>
   <meta name="description" content="สินค้าและบริการ BiMSolutions: Revit Extension ช่วง Early Access คอร์ส Revit ที่กำลังจะเปิด และบริการ BIM Coordination, BOQ, Shop Drawing และ IMS/VDC">
   <link rel="canonical" href="https://bimsolutions-th.com/shop.html">
+  <meta property="og:title" content="สินค้าและบริการ BIM | BiMSolutions">
+  <meta property="og:description" content="บริการ BIM Coordination, BOQ, Shop Drawing, เครื่องมือ Revit และคอร์สเรียนรู้จาก BiMSolutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bimsolutions-th.com/shop.html">
+  <meta property="og:image" content="https://bimsolutions-th.com/BiM_Solutions_profile.png">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="สินค้าและบริการ BIM | BiMSolutions">
+  <meta name="twitter:description" content="บริการ BIM Coordination, BOQ, Shop Drawing, เครื่องมือ Revit และคอร์สเรียนรู้จาก BiMSolutions">
+  <meta name="twitter:image" content="https://bimsolutions-th.com/BiM_Solutions_profile.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","@id":"https://bimsolutions-th.com/shop.html#service","name":"บริการ BIM และ Revit | BiMSolutions","url":"https://bimsolutions-th.com/shop.html","description":"บริการ BIM Coordination, BOQ, Shop Drawing และเครื่องมือสำหรับงาน Revit","provider":{"@id":"https://bimsolutions-th.com/#organization"},"areaServed":"TH","inLanguage":"th-TH"}
+  </script>
   <script src="./site-theme.js?v=1"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="./supabase-config.js" defer></script>
@@ -75,6 +88,29 @@
     .card p { margin:0 0 20px; color:var(--muted); font-size:16px; }
     .card a { display:inline-flex; align-items:center; align-self:flex-start; gap:7px; margin-top:auto; padding:10px 16px; background:var(--blue); border-radius:10px; color:#fff; text-decoration:none; font-size:15px; font-weight:700; }
     .card a:hover { background:#1d4ed8; }
+    .price { margin:-4px 0 15px; color:var(--blue-soft); font:700 18px/1.2 'Inter',sans-serif; }
+    .card-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:auto; }
+    .card-actions button { border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:var(--surface-2); color:var(--ink); cursor:pointer; font:700 15px/1.35 'Athiti','Inter',sans-serif; }
+    .card-actions .primary-action { border-color:var(--blue); background:var(--blue); color:#fff; }
+    .card-actions button:hover { border-color:var(--blue); transform:translateY(-1px); }
+    .card-actions .primary-action:hover { background:#1d4ed8; }
+    .shop-cart-button { position:fixed; right:24px; bottom:24px; z-index:20; display:none; align-items:center; gap:9px; border:1px solid var(--blue); border-radius:999px; padding:12px 17px; background:var(--blue); color:#fff; box-shadow:0 12px 30px #0005; cursor:pointer; font:700 15px/1.3 'Athiti','Inter',sans-serif; }
+    .shop-cart-button.is-visible { display:flex; }
+    .shop-cart-count { display:grid; place-items:center; min-width:23px; height:23px; padding:0 6px; border-radius:99px; background:#fff; color:#1d4ed8; font:700 12px/1 'Inter',sans-serif; }
+    .cart-dialog[hidden], .shop-toast[hidden] { display:none; }
+    .cart-dialog { position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:20px; background:#020617aa; }
+    .cart-panel { width:min(480px,100%); padding:26px; border:1px solid var(--line); border-radius:20px; background:var(--surface); box-shadow:0 24px 70px #0008; }
+    .cart-panel-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .cart-panel h2 { margin:0; font-size:28px; }
+    .cart-close { width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:var(--surface-2); color:var(--ink); cursor:pointer; font-size:22px; }
+    .cart-list { display:grid; gap:12px; margin:22px 0; }
+    .cart-item { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:15px; border:1px solid var(--line); border-radius:13px; background:var(--surface-2); }
+    .cart-item strong { display:block; line-height:1.35; }
+    .cart-item small { color:var(--muted); }
+    .cart-item button { border:0; background:transparent; color:var(--blue-soft); cursor:pointer; font:700 14px/1.3 'Athiti','Inter',sans-serif; }
+    .cart-checkout { width:100%; border:0; border-radius:11px; padding:13px 16px; background:var(--blue); color:#fff; cursor:pointer; font:700 16px/1.4 'Athiti','Inter',sans-serif; }
+    .cart-empty { color:var(--muted); text-align:center; padding:24px 0; }
+    .shop-toast { position:fixed; z-index:40; left:50%; bottom:28px; transform:translateX(-50%); width:min(440px,calc(100% - 36px)); padding:13px 17px; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--ink); box-shadow:0 14px 40px #0006; text-align:center; }
     .empty { grid-column:1/-1; padding:48px 20px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:16px; }
     .closing { margin-top:46px; padding:27px 30px; border-radius:18px; background:var(--surface-2); border:1px solid var(--line); }
     .closing h2 { margin:0 0 6px; font-size:25px; }
@@ -119,9 +155,19 @@
       </div>
     </section>
   </main>
+  <button class="shop-cart-button" id="shop-cart-button" type="button" aria-label="ตะกร้าสินค้า" onclick="openCart()">🛒 <span data-i18n-th>ตะกร้า</span><span data-i18n-en>Cart</span> <span class="shop-cart-count" id="shop-cart-count">0</span></button>
+  <div class="cart-dialog" id="cart-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="cart-title" onclick="if(event.target===this)closeCart()">
+    <section class="cart-panel">
+      <div class="cart-panel-head"><h2 id="cart-title"><span data-i18n-th>ตะกร้าสินค้า</span><span data-i18n-en>Shopping cart</span></h2><button class="cart-close" type="button" aria-label="Close" onclick="closeCart()">×</button></div>
+      <div class="cart-list" id="cart-list"></div>
+      <button class="cart-checkout" id="cart-checkout" type="button" onclick="checkoutFreeCart()"><span data-i18n-th>รับสินค้าฟรี</span><span data-i18n-en>Get free items</span></button>
+    </section>
+  </div>
+  <div class="shop-toast" id="shop-toast" hidden role="status"></div>
   <footer><div class="wrap"><span>© 2026 BiMSolutions</span><a href="./"><span data-i18n-th>กลับหน้าแรก</span><span data-i18n-en>Back to home</span></a></div></footer>
   <script>
     const offerings = [
+      { id:'product-template-test', category:'template', name:'Template สำหรับทดสอบ', nameEn:'Test Revit Template', description:'ไฟล์ Template Revit สำหรับทดสอบระบบ พร้อมใช้งานสำหรับสมาชิก ราคา 0 บาท', descriptionEn:'A Revit template file for system testing, available to members at no cost.', status:'ฟรี · 0 บาท', statusEn:'Free · ฿0', action:'รับฟรีทันที', actionEn:'Get it free', download:'./downloads/Template-สำหรับทดสอบ.rte', price:0 },
       { id:'product-extension', category:'extension', name:'BiMSolutions Revit Extension', nameEn:'BiMSolutions Revit Extension', description:'เครื่องมือสำหรับงาน Revit โดยเริ่มจากงานโครงสร้างและการจัดการเหล็กเสริม เปิดให้ร่วมทดลองและให้ความเห็นในช่วง Early Access', descriptionEn:'Revit tools starting with structural workflows and reinforcement. Join the Early Access program and share feedback.', status:'Early Access', statusEn:'Early Access', action:'เข้าร่วม Early Access', actionEn:'Join Early Access', href:'./#contact' },
       { id:'product-revit-basics', category:'course', name:'เรียนรู้งาน Revit เบื้องต้น', nameEn:'Revit Basics', description:'กิจกรรมเรียนรู้ Revit ออนไลน์ฟรีสำหรับผู้เริ่มต้น ครอบคลุมงานสถาปัตยกรรม โครงสร้าง ระบบสุขาภิบาล และระบบไฟฟ้า วันที่ 28 ตุลาคม 2569', descriptionEn:'Free online Revit basics session for beginners, covering architecture, structure, plumbing, and electrical work on 28 October 2026.', status:'เปิดลงทะเบียน', statusEn:'Registration open', action:'ลงทะเบียนฟรี', actionEn:'Register free', href:'./#seminar' },
       { id:'product-architecture-structure', category:'course', name:'Revit Architecture & Structure', nameEn:'Revit Architecture & Structure', description:'คอร์สพื้นฐาน Revit สำหรับงานสถาปัตย์และโครงสร้าง กำลังเตรียมเปิดตัว', descriptionEn:'Foundational Revit course for architectural and structural work. Launching soon.', status:'เร็ว ๆ นี้', statusEn:'Coming soon', action:'รับแจ้งเตือน', actionEn:'Get notified', href:'mailto:p.termpong@gmail.com?subject=Revit%20Architecture%20and%20Structure%20course' },
@@ -132,10 +178,11 @@
       { category:'service', name:'Shop Drawing', nameEn:'Shop Drawing', description:'บริการจัดทำแบบก่อสร้างจากโมเดล Revit เพื่อใช้ประสานงานและส่งพิจารณา', descriptionEn:'Construction drawings based on Revit models for coordination and review.', status:'ติดต่อสอบถาม', statusEn:'Contact us', action:'สอบถามบริการ', actionEn:'Ask about service', href:'mailto:p.termpong@gmail.com?subject=Shop%20Drawing%20inquiry' },
       { category:'service', name:'IMS & VDC Tools', nameEn:'IMS & VDC Tools', description:'แนวทางและเครื่องมือเฉพาะสำหรับงาน Infrastructure Management และ VDC ติดต่อทีมงานเพื่อหารือความต้องการ', descriptionEn:'Infrastructure Management and VDC tools tailored to project needs. Contact the team to discuss your scope.', status:'ติดต่อสอบถาม', statusEn:'Contact us', action:'สอบถามบริการ', actionEn:'Ask about service', href:'mailto:p.termpong@gmail.com?subject=IMS%20VDC%20Tools%20inquiry' }
     ];
-    const labels = { all:['ทั้งหมด','All'], extension:['Revit Extension','Revit Extension'], course:['คอร์สเรียน','Courses'], service:['บริการ','Services'] };
+    const labels = { all:['ทั้งหมด','All'], template:['Template','Templates'], extension:['Revit Extension','Revit Extension'], course:['คอร์สเรียน','Courses'], service:['บริการ','Services'] };
     const icons = {
       extension:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/>',
       course:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+      template:'<path d="M4 3h16v18H4zM8 7h8M8 11h8M8 15h5"/>',
       service:'<path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-7h6v7"/>'
     };
     let category = 'all';

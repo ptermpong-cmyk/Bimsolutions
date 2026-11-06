@@ -25,22 +25,7 @@ Deno.serve(async (request) => {
   if (readError || !current) return new Response(JSON.stringify({ error: 'Registration not found' }), { status: 404, headers: corsHeaders });
   if (current.confirmation_sent_at) return new Response(JSON.stringify({ ok: true, message: 'Already sent' }), { headers: corsHeaders });
 
-  const mail = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${Deno.env.get('RESEND_API_KEY')}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: 'BiMSolutions <noreply@bimsolutions-th.com>',
-      to: [current.email],
-      subject: 'ยืนยันการลงทะเบียน: เรียนรู้งาน Revit เบื้องต้น',
-      html: `<main style="font-family:Arial,sans-serif;color:#10213b;line-height:1.6"><h1>ลงทะเบียนสำเร็จ</h1><p>สวัสดีคุณ ${escapeHtml(current.full_name)}</p><p>คุณลงทะเบียนกิจกรรม <strong>เรียนรู้งาน Revit เบื้องต้น</strong> วันที่ <strong>6 พฤศจิกายน 2569 เวลา 09.00–12.00 น.</strong> เรียบร้อยแล้ว</p><p>ทีมงานจะส่งลิงก์ Zoom ให้ทางอีเมลนี้ก่อนเริ่มกิจกรรม</p><p>ขอบคุณ<br>BiMSolutions</p></main>`
-    })
-  });
-  if (!mail.ok) return new Response(JSON.stringify({ error: 'Email provider rejected request' }), { status: 502, headers: corsHeaders });
-
-  await supabase.from('seminar_registrations').update({ confirmation_sent_at: new Date().toISOString() }).eq('id', current.id);
-  return new Response(JSON.stringify({ ok: true }), { headers: corsHeaders });
+  // The event is postponed and registration is closed. Do not send the old
+  // confirmation containing the superseded date or Zoom-link promise.
+  return new Response(JSON.stringify({ ok: true, message: 'Event postponed; confirmation not sent' }), { headers: corsHeaders });
 });
-
-function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]!));
-}
